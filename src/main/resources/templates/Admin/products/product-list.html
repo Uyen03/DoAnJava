@@ -7,7 +7,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-<!--    <div th:replace = "Admin/fragments/header :: header"></div>-->
+    <!--    <div th:replace = "Admin/fragments/header :: header"></div>-->
     <!-- =============================================== -->
 
     <!-- Left side column. contains the sidebar -->
@@ -41,7 +41,7 @@
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/Admin/products/product-list">
+                    <a href="admin/product">
                         <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
                         <span class="pull-right-container">
               <small class="label pull-right bg-green">FE</small>
@@ -99,9 +99,39 @@
             <div class="box">
 
                 <div class="box-body">
-                   <h1>Trang quản trị </h1>
+                    <h1>Quản lý sản phẩm</h1>
                 </div>
 
+                <div>
+                    <a th:href="@{/products/add}" class="btn btn-primary mb-3">Add New Product</a>
+                </div>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:if="${product.ImageURL != null}">
+                            <img th:src="@{/images/{img}(img=${product.ImageURL})}" alt="${product.name}" width="50" height="50">
+                        </td>
+                        <td th:if="${product.ImageURL == null}">No Image</td>
+                        <td>
+                            <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
+                            <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- /.box -->
 
