@@ -41,11 +41,11 @@
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li>
-                    <a href="admin/product">
+                    <a class="nav-link active" aria-current="page" href="/admin/products/product-list">
                         <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
                         <span class="pull-right-container">
-              <small class="label pull-right bg-green">FE</small>
-            </span>
+                        <small class="label pull-right bg-green">FE</small>
+                        </span>
                     </a>
                 </li>
 
@@ -102,7 +102,7 @@
                     <h1>Quản lý sản phẩm</h1>
                 </div>
 
-                <form th:action="@{/products/update/{id}(id=${product.id})}" th:object="${product}" method="post"
+                <form th:action="@{/admin/products/update/{id}(id=${product.id})}" th:object="${product}" method="post" enctype="multipart/form-data"
                       class="needs-validation" novalidate>
                     <div class="mb-3">
                         <label for="name" class="form-label">Name:</label>
@@ -115,7 +115,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description (optional):</label>  <textarea th:field="*{description}" class="form-control" id="description"></textarea>  </div>
-                    <button type="submit" class="btn btn-primary">Update Product</button>  <a th:href="@{/products/{id}(id=${product.id})}" class="btn btnlink">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Update Product</button>
+                    <a th:href="@{/products/{id}(id=${product.id})}" class="btn btnlink">Cancel</a>
                 </form>
             </div>
             <!-- /.box -->
