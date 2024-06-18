@@ -2,23 +2,37 @@ package com.example.DoAnJaVa.model;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @Entity
-@Table(name = "products")
+@Table(name = "Product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_PRO")
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_CAT", referencedColumnName = "ID_CAT")
+    private Category category;
+
+    @Column(name = "NAME_PRO", nullable = false)
     private String name;
 
+    @Column(name = "NUMS", nullable = false)
+    private int nums;
+
+    @Column(name = "PRICE", nullable = false)
     private double price;
 
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    private String ImageURL;
+    @Column(name = "IMGURL")
+    private String imageURL;
+
+//    @OneToMany(mappedBy = "product")
+//    private Set<CartDetail> cartDetails;
 }

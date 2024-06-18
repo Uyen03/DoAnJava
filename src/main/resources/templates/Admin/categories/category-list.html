@@ -88,7 +88,7 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-         Content Header (Page header)
+        Content Header (Page header)
         <section class="content-header">
             <h1>
                 Blank page
@@ -108,35 +108,33 @@
             <div class="box">
 
                 <div class="box-body">
-                    <h1>Quản lý sản phẩm</h1>
+                    <h1>Quản lý danh mục</h1>
                 </div>
 
                 <div>
-                    <a th:href="@{/admin/products/add}" class="btn btn-primary mb-3">Add New Product</a>
+                    <div>
+                        <a th:href="@{/admin/categories/add}" class="btn btn-primary mb-3">Add New Category</a>
+                    </div>
                 </div>
                 <table class="table table-bordered table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Price</th>
-                        <th>Image</th>
-                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product : ${products}">
-                        <td th:text="${product.id}"></td>
-                        <td th:text="${product.name}"></td>
-                        <td th:text="${product.price}"></td>
-                        <td th:if="${product.ImageURL != null}">
-                            <img th:src="@{/images/{img}(img=${product.ImageURL})}" alt="${product.name}" width="50" height="50">
-                        </td>
-                        <td th:if="${product.ImageURL == null}">No Image</td>
+                    <tr th:each="category : ${categories}">
+                        <td th:text="${category.id}"></td>
+                        <td th:text="${category.name}"></td>
                         <td>
-                            <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
-                            <a th:href="@{/admin/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                            <div>
+                                <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}"
+                                   class="btn btn-success btn-sm">Edit</a>
+                                <a th:href="@{/admin/categories/delete/{id}(id=${category.id})}"
+                                   class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

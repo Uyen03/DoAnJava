@@ -21,9 +21,11 @@ public class ProductService {
     public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
     }
+
     public Product addProduct(Product product) {
         return productRepository.save(product);
     }
+
     public Product updateProduct(Product product) {
         Product existingProduct = productRepository.findById((long) product.getId())
                 .orElseThrow(() -> new IllegalStateException("Product with ID " + product.getId() + " does not exist."));
@@ -31,7 +33,7 @@ public class ProductService {
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setImageURL(product.getImageURL());
-//        existingProduct.setCategory(product.getCategory());
+        existingProduct.setCategory(product.getCategory());
         return productRepository.save(existingProduct);
     }
 
