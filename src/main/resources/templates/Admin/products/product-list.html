@@ -41,11 +41,11 @@
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li>
-                    <a href="admin/product">
+                    <a class="nav-link active" aria-current="page" href="/admin/products/product-list">
                         <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
                         <span class="pull-right-container">
-              <small class="label pull-right bg-green">FE</small>
-            </span>
+                        <small class="label pull-right bg-green">FE</small>
+                        </span>
                     </a>
                 </li>
 
@@ -79,7 +79,7 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+         Content Header (Page header)
         <section class="content-header">
             <h1>
                 Blank page
@@ -103,7 +103,7 @@
                 </div>
 
                 <div>
-                    <a th:href="@{/products/add}" class="btn btn-primary mb-3">Add New Product</a>
+                    <a th:href="@{/admin/products/add}" class="btn btn-primary mb-3">Add New Product</a>
                 </div>
                 <table class="table table-bordered table-hover">
                     <thead class="table-dark">
@@ -126,8 +126,8 @@
                         </td>
                         <td th:if="${product.ImageURL == null}">No Image</td>
                         <td>
-                            <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
-                            <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
+                            <a th:href="@{/admin/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
                         </td>
                     </tr>
                     </tbody>

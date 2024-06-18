@@ -20,7 +20,7 @@ public class ProductController {
     private ProductService productService;
 //    @Autowired
 //    private CategoryService categoryService;
-    @GetMapping
+    @GetMapping("/product-list")
     public String showProductList(Model model) {
         model.addAttribute("products", productService.getAllProducts());
         return "Admin/products/product-list";
@@ -39,7 +39,7 @@ public class ProductController {
         return "Admin/products/add-product";
     }
         productService.addProduct(product);
-        return "redirect:/products";
+        return "redirect:product-list";
     }
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {  Product product = productService.getProductById(id)
@@ -55,12 +55,12 @@ public class ProductController {
             return "Admin/products/update-product";
         }
         productService.updateProduct(product);
-        return "redirect:/products";
+        return "redirect:/admin/products/product-list";
     }
     // Handle request to delete a product
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
-        return "redirect:/products";
+        return "redirect:/admin/products/product-list";
     }
 }
