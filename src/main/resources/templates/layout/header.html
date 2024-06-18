@@ -10,7 +10,23 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
                     <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
                         <span class="navbar-text text-dark">
-                            Xin chào, <a href="/profile"><span sec:authentication="name"></span></a>
+                         <div sec:authorize="hasAuthority('ADMIN')">
+                                Xin chào, <a href="/admin"><span sec:authentication="name"></span></a>
+                         </div>
+                        </span>
+                    </li>
+                    <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
+                        <span class="navbar-text text-dark">
+                         <div sec:authorize="hasAuthority('USER')">
+                                Xin chào, <a href="#"><span sec:authentication="name"></span></a>
+                         </div>
+                        </span>
+                    </li>
+                    <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
+                        <span class="navbar-text text-dark">
+                         <div sec:authorize="hasAuthority('EMPLOYEE')">
+                                Xin chào, <a href="/employ"><span sec:authentication="name"></span></a>
+                         </div>
                         </span>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">

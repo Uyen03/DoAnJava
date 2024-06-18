@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin/products")
+@RequestMapping("/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
