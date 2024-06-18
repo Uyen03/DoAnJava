@@ -41,7 +41,7 @@ public class CategoryController {
             return "Admin/categories/add-category";
         }
         categoryService.addCategory(category);
-        return "redirect:category-list";
+        return "redirect:/admin/categories/category-list";
     }
 
     @GetMapping("/edit/{id}")
@@ -62,7 +62,7 @@ public class CategoryController {
         }
         categoryService.updateCategory(category);
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "redirect:category-list";
+        return "redirect:/admin/categories/category-list";
     }
 
     // GET request for deleting category 
@@ -71,6 +71,6 @@ public class CategoryController {
         Category category = categoryService.getCategoryById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + id));
         categoryService.deleteCategoryById(id);
-        return "redirect:category-list";
+        return "redirect:/admin/categories/category-list";
     }
 }

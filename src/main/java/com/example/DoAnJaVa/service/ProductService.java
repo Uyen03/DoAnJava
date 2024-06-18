@@ -30,10 +30,11 @@ public class ProductService {
         Product existingProduct = productRepository.findById((long) product.getId())
                 .orElseThrow(() -> new IllegalStateException("Product with ID " + product.getId() + " does not exist."));
         existingProduct.setName(product.getName());
+        existingProduct.setCategory(product.getCategory());
+        existingProduct.setNums(product.getNums());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setImageURL(product.getImageURL());
-        existingProduct.setCategory(product.getCategory());
         return productRepository.save(existingProduct);
     }
 

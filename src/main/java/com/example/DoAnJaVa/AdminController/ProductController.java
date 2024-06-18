@@ -5,7 +5,6 @@ import com.example.DoAnJaVa.service.CategoryService;
 import com.example.DoAnJaVa.model.Category;
 import com.example.DoAnJaVa.model.Product;
 import org.springframework.ui.Model;
-//import com.example.DoAnJaVa.service.CategoryService;
 //import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,7 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping()
+    @GetMapping("/product-list")
     public String showProductList(Model model) {
         model.addAttribute("products", productService.getAllProducts());
         return "Admin/products/product-list";
@@ -45,7 +44,7 @@ public class ProductController {
         }
 
         productService.addProduct(product);
-        return "redirect:/admin/product-list";
+        return "redirect:/admin/products/product-list";
     }
 
     @GetMapping("/edit/{id}")
@@ -64,13 +63,13 @@ public class ProductController {
         }
 
         productService.updateProduct(product);
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/product-list";
     }
 
     // Handle request to delete a product
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/product-list";
     }
 }
