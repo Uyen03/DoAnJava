@@ -9,10 +9,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller // Đánh dấu lớp này là một Controller trong Spring MVC.
 @RequestMapping("/")
@@ -42,4 +39,45 @@ public class UserController {
         userService.setDefaultRole(user.getUsername()); // Gán vai trò mặc định cho người dùng
         return "redirect:/login"; // Chuyển hướng người dùng tới trang "login"
     }
+
+
+
+    // Admin functionalities
+
+    @GetMapping("/admin/users")
+    public String listUsers(Model model) {
+        model.addAttribute("users", userService.findAllUsers());
+        return "admin/users/list";
+    }
+
+    @GetMapping("/admin/users/edit/{id}")
+    public String editUser(@PathVariable Long id, Model model) {
+        User user = userService.findUserById(id).orElse(null);
+        if (user == null) {
+            return "redirect:/admin/users";
+        }
+        model.addAttribute("user", user);
+        return "admin/users/edit";
+    }
+
+    @PostMapping("/admin/users/edit/{id}")
+    public String updateUser(@PathVariable Long id, @Valid @ModelAttribute("user") User user, @NotNull BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            var errors = bindingResult.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toArray(String[]::new);
+            model.addAttribute("errors", errors);
+            return "admin/users/edit";
+        }
+        userService.updateUser(user);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/users/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUserById(id);
+        return "redirect:/admin/users";
+    }
+
 }

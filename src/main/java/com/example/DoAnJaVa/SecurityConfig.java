@@ -40,7 +40,7 @@ public class SecurityConfig {
                                         "/products", "/cart", "/cart/**","/products/detail", "/products/detail/**","/","/**","/home","/home/**","/login","/profile","/profile/**"
                                 ,"/admin/products","/admin/products/**")
                                 .permitAll() // Cho phép truy cập không cần xác thực.
-                                .requestMatchers("/products/edit/**", "/products/add", "/products/delete")
+                                .requestMatchers("/products/edit/**", "/products/add", "/products/delete","/products/product-list")
                                 .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
                                 .requestMatchers("/api/**")
                                 .permitAll() // API mở cho mọi người dùng.
