@@ -1,6 +1,8 @@
 package com.example.DoAnJaVa.AdminController;
 
 import com.example.DoAnJaVa.service.ProductService;
+import com.example.DoAnJaVa.service.CategoryService;
+import com.example.DoAnJaVa.model.Category;
 import com.example.DoAnJaVa.model.Product;
 import jakarta.validation.Valid;
 import org.springframework.core.io.ClassPathResource;
@@ -39,40 +41,45 @@ public class ProductController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("product", new Product());
-//        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "Admin/products/add-product";
     }
+
     // Process the form for adding a new product
     @PostMapping("/add")
     public String addProduct( Product product, BindingResult result) {
         if (result.hasErrors()) {
-        return "Admin/products/add-product";
-    }
+            return "Admin/products/add-product";
+        }
+
         productService.addProduct(product);
-        return "redirect:product-list";
+        return "redirect:/admin/product-list";
     }
     
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {  Product product = productService.getProductById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
         model.addAttribute("product", product);
-//        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "Admin/products/update-product";
     }
+
     @PostMapping("/update/{id}")
     public String updateProduct(@PathVariable Long id, Product product, BindingResult result) {
         if (result.hasErrors()) {
             product.setId(Math.toIntExact(id));
             return "Admin/products/update-product";
         }
+
         productService.updateProduct(product);
-        return "redirect:/admin/products/product-list";
+        return "redirect:/admin/products";
     }
+
     // Handle request to delete a product
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
-        return "redirect:/admin/products/product-list";
+        return "redirect:/admin/products";
     }
 
 
