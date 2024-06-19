@@ -1,5 +1,6 @@
 package com.example.DoAnJaVa.controller;
 
+import com.example.DoAnJaVa.service.CategoryService;
 import com.example.DoAnJaVa.service.ProductService;
 import com.example.DoAnJaVa.model.Product;
 import org.springframework.ui.Model;
@@ -12,15 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeController {
+    @Autowired
     private ProductService productService;
+
 
     @GetMapping
     public String home(Model model){
         model.addAttribute("products", productService.getAllProducts());
         return "index";
     }
+
 
 
 }
