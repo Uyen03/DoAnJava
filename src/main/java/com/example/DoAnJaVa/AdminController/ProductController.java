@@ -2,29 +2,39 @@ package com.example.DoAnJaVa.AdminController;
 
 import com.example.DoAnJaVa.service.ProductService;
 import com.example.DoAnJaVa.model.Product;
+import jakarta.validation.Valid;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.ui.Model;
 //import com.example.DoAnJaVa.service.CategoryService;
 //import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @Controller
-@RequestMapping("/products")
+@RequestMapping("/admin/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
-//    @Autowired
-//    private CategoryService categoryService;
-    @GetMapping("/product-list")
-    public String showProductList(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
-        return "Admin/products/product-list";
-    }
+    //    @Autowired
+    //    private CategoryService categoryService;
+
+        @GetMapping("/product-list")
+        public String showProductList(Model model) {
+            model.addAttribute("products", productService.getAllProducts());
+            return "Admin/products/product-list";
+        }
+
     // For adding a new product
     @GetMapping("/add")
     public String showAddForm(Model model) {
@@ -41,6 +51,7 @@ public class ProductController {
         productService.addProduct(product);
         return "redirect:product-list";
     }
+    
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {  Product product = productService.getProductById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
@@ -63,4 +74,6 @@ public class ProductController {
         productService.deleteProductById(id);
         return "redirect:/admin/products/product-list";
     }
+
+
 }

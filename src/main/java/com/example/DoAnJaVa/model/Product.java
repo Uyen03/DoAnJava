@@ -21,4 +21,6 @@ public class Product {
     private String description;
 
     private String ImageURL;
+
+    private String mainImage;
 }

@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace = "Admin/fragments/head :: head"></head>
 <head th:replace = "Admin/fragments/header :: header"></head>
 
@@ -49,12 +50,28 @@
                         </span>
                     </a>
                 </li>
+
                 <li>
                     <a class="nav-link active" aria-current="page" href="/admin/users">
                         <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
 
                     </a>
                 </li>
+<!--                <li>-->
+<!--                    <a class="nav-link" href="/admin/users/role/USER">-->
+<!--                        <i class="fa fa-user"></i> <span>Danh sách User</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a class="nav-link" href="/admin/users/role/ADMIN">-->
+<!--                        <i class="fa fa-user-shield"></i> <span>Danh sách Admin</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a class="nav-link" href="/admin/users/role/EMPLOY">-->
+<!--                        <i class="fa fa-user-tie"></i> <span>Danh sách Employ</span>-->
+<!--                    </a>-->
+<!--                </li>-->
 
                 <li class="treeview">
                     <a href="#">
@@ -86,18 +103,7 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Blank page
-                <small>it all starts here</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="#">Examples</a></li>
-                <li class="active">Blank page</li>
-            </ol>
-        </section>
+
 
         <!-- Main content -->
         <section class="content">
@@ -106,25 +112,32 @@
             <div class="box">
 
                 <div class="box-body">
-                    <h1>Thêm sản phẩm</h1>
+                    <h1>User List</h1>
                 </div>
 
-                <form th:action="@{/admin/products/add}" th:object="${product}" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name:</label>
-                        <input type="text" th:field="*{name}" class="form-control" id="name" required>
-                        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="price" class="form-label">Price:</label>
-                        <input type="text" th:field="*{price}" class="form-control" id="price" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description (optional):</label>
-                        <textarea th:field="*{description}" class="form-control" id="description"></textarea>  </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                    <a th:href="@{/products}" class="btn btn-link">Cancel</a>
-                </form>
+
+                <table class="table table-bordered table-hover">
+                    <thead class="table-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td>
+                            <a th:href="@{'/admin/users/edit/' + ${user.id}}">Edit</a>
+                            <a th:href="@{'/admin/users/delete/' + ${user.id}}" onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- /.box -->
 
@@ -155,3 +168,4 @@
 <script th:src="@{admin/js/function.js}"></script>
 </body>
 </html>
+
