@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace = "Admin/fragments/head :: head"></head>
 <head th:replace = "Admin/fragments/header :: header"></head>
 
@@ -130,7 +130,21 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description (optional):</label>
-                        <textarea th:field="*{description}" class="form-control" id="description"></textarea>  </div>
+                        <textarea th:field="*{description}" class="form-control" id="description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-list"></i></span>
+                            <select th:field="*{category}" class="form-select" id="category" required>
+                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Category</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a category.
+                            </div>
+                        </div>
+                        <div class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                     <a th:href="@{/products}" class="btn btn-link">Cancel</a>
                 </form>
