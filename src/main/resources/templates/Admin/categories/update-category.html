@@ -57,6 +57,12 @@
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/users">
+                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
+
+                    </a>
+                </li>
 
                 <li class="treeview">
                     <a href="#">
@@ -127,7 +133,7 @@
                              th:errors="*{name}">Valid name is required.</div>
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a th:href="@{/admin/categories}" class="btn btn-link">Cancel</a>
+                    <a th:href="@{/admin/categories/category-list}" class="btn btn-link">Cancel</a>
                 </form>
             </div>
             <!-- /.box -->

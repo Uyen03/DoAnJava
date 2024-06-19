@@ -80,7 +80,7 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/product-list";
     }
 
 

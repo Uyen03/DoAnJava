@@ -49,12 +49,6 @@
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/users">
-                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
-
-                    </a>
-                </li>
 
                 <li>
                     <a class="nav-link active" aria-current="page" href="/admin/categories/category-list">
@@ -62,6 +56,12 @@
                         <span class="pull-right-container">
                         <small class="label pull-right bg-green">FE</small>
                         </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/users">
+                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
+
                     </a>
                 </li>
 
@@ -128,6 +128,13 @@
                     <div class="mb-3">
                         <label for="price" class="form-label">Price:</label>
                         <input type="text" th:field="*{price}" class="form-control" id="price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category:</label>
+                        <select th:field="*{category}" class="form-control" id="category">
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == product.category.id}"></option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description (optional):</label>  <textarea th:field="*{description}" class="form-control" id="description"></textarea>  </div>
