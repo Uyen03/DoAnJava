@@ -49,12 +49,6 @@
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/users">
-                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
-
-                    </a>
-                </li>
 
                 <li>
                     <a class="nav-link active" aria-current="page" href="/admin/categories/category-list">
@@ -62,6 +56,12 @@
                         <span class="pull-right-container">
                         <small class="label pull-right bg-green">FE</small>
                         </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/users">
+                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
+
                     </a>
                 </li>
 
@@ -129,10 +129,20 @@
                         <input type="text" th:field="*{price}" class="form-control" id="price" required>
                     </div>
                     <div class="mb-3">
+                        <label for="category" class="form-label">Category:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-list"></i></span>
+                            <select th:field="*{category}" class="form-select" id="category">
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}" th:text="${category.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
                         <label for="description" class="form-label">Description (optional):</label>
                         <textarea th:field="*{description}" class="form-control" id="description"></textarea>  </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
-                    <a th:href="@{/products}" class="btn btn-link">Cancel</a>
+                    <a th:href="@{/admin/products/product-list}" class="btn btn-link">Cancel</a>
                 </form>
             </div>
             <!-- /.box -->

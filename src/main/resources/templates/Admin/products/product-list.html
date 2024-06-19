@@ -49,12 +49,6 @@
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/users">
-                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
-
-                    </a>
-                </li>
 
                 <li>
                     <a class="nav-link active" aria-current="page" href="/admin/categories/category-list">
@@ -62,6 +56,12 @@
                         <span class="pull-right-container">
                         <small class="label pull-right bg-green">FE</small>
                         </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/users">
+                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
+
                     </a>
                 </li>
 
@@ -123,6 +123,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Price</th>
+                        <th>Caegory</th>
                         <th>Image</th>
                         <th>Description</th>
                         <th>Actions</th>
@@ -133,6 +134,7 @@
                         <td th:text="${product.id}"></td>
                         <td th:text="${product.name}"></td>
                         <td th:text="${product.price}"></td>
+                        <span th:text="${product.category.name}"></span>
                         <td th:if="${product.ImageURL != null}">
                             <img th:src="@{/images/{img}(img=${product.ImageURL})}" alt="${product.name}" width="50" height="50">
                         </td>

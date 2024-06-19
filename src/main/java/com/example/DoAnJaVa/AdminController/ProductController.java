@@ -28,8 +28,8 @@ import java.util.UUID;
 public class ProductController {
     @Autowired
     private ProductService productService;
-    //    @Autowired
-    //    private CategoryService categoryService;
+    @Autowired
+     private CategoryService categoryService;
 
         @GetMapping("/product-list")
         public String showProductList(Model model) {
@@ -53,7 +53,7 @@ public class ProductController {
         }
 
         productService.addProduct(product);
-        return "redirect:/admin/product-list";
+        return "redirect:/admin/products/product-list";
     }
     
     @GetMapping("/edit/{id}")
@@ -72,14 +72,14 @@ public class ProductController {
         }
 
         productService.updateProduct(product);
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/product-list";
     }
 
     // Handle request to delete a product
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
-        return "redirect:/admin/products";
+        return "redirect:/admin/products/product-list";
     }
 
 
