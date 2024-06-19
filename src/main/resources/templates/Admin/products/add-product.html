@@ -143,17 +143,12 @@
                         <textarea th:field="*{description}" class="form-control" id="description"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="category" class="form-label">Category:</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-list"></i></span>
-                            <select th:field="*{category}" class="form-select" id="category" required>
-                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Category</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a category.
-                            </div>
-                        </div>
-                        <div class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+                        <label for="mainImage" class="form-label">Hình ảnh:</label>
+                        <input type="file"  class="form-control" id="mainImage" name="mainImage" required placeholder="hinh anh">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productimages" class="form-label">Product Images:</label>
+                        <input type="file" id="productimages" multiple accept="image/*" name="productimages" class="form-control"/>
                     </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                     <a th:href="@{/admin/products/product-list}" class="btn btn-link">Cancel</a>

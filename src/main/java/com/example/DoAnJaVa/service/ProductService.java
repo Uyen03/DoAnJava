@@ -32,7 +32,7 @@ public class ProductService {
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
-        existingProduct.setImageURL(product.getImageURL());
+        existingProduct.setMainImage(product.getMainImage());
         existingProduct.setCategory(product.getCategory());
         return productRepository.save(existingProduct);
     }

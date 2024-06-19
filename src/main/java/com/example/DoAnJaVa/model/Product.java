@@ -3,6 +3,9 @@ package com.example.DoAnJaVa.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -30,7 +33,8 @@ public class Product {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    private String ImageURL;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImage> images = new ArrayList<>();
 
     private String mainImage;
 }

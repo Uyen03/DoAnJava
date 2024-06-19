@@ -1,5 +1,6 @@
 package com.example.DoAnJaVa.service;
 
+import com.example.DoAnJaVa.Provider;
 import com.example.DoAnJaVa.Role;
 import com.example.DoAnJaVa.model.User;
 import com.example.DoAnJaVa.repository.IRoleRepository;
@@ -61,6 +62,18 @@ public class UserService implements UserDetailsService {
     public Optional<User> findByUsername(String username) throws
             UsernameNotFoundException {
         return userRepository.findByUsername(username);
+    }
+
+    public void saveOauthUser(String email, @NotNull String username) {
+        if (userRepository.findByUsername(username).isPresent())
+            return;
+        var user = new User();
+        user.setUsername(username);
+
+        user.setEmail(email);
+        user.setPassword(new BCryptPasswordEncoder().encode(username)); user.setProvider (Provider.GOOGLE.value);
+        user.getRoles().add(roleRepository.findRoleById(Role.USER.value));
+        userRepository.save(user);
     }
 
     // Tìm tất cả người dùng
