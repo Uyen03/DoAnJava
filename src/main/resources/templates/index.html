@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="layout/head :: head"> </head>
 
 <body>
@@ -244,14 +244,13 @@
                             <div class="product product-2">
                                 <figure class="product-media">
                                     <span class="product-label label-circle label-top">New</span>
-                                    <a th:href="@{/products/detail/{id}(id=${product.id})}">
+                                    <a th:href="@{/admin/products/detail/{id}(id=${product.id})}">
                                         <img th:src="${product.mainImage}" alt="Product image" class="product-image">
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>
                                     </div>
                                     <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
                                         <a  class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
                                     </div>
                                 </figure>
@@ -259,7 +258,9 @@
                                     <div class="product-cat">
                                         <a href="#" th:text="${product.category.name}"></a>
                                     </div>
-                                    <h3 class="product-title" th:text="${product.name}"><a href="#">Product name</a></h3>
+                                    <a th:href="@{/admin/products/detail/{id}(id=${product.id})}">
+                                        <h5 class="card-title" th:text="${product.name}" >Product Name</h5>
+                                    </a>
                                     <div class="product-price" th:text="${product.price}">
                                         $1,199.99
                                     </div>
@@ -269,6 +270,11 @@
                                         </div>
                                         <span class="ratings-text"></span>
                                     </div>
+                                    <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()" class="d-flex align-items-center">
+                                        <input type="number" name="quantity" min="1" value="1" class="form-control me-2" style="width: 70px;">
+                                        <input type="hidden" th:value="${product.id}" name="productId"/>
+                                        <button type="submit" class="btn btn-warning btn-sm">Add to Cart</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

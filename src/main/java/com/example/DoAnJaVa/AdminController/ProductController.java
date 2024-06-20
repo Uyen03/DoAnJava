@@ -110,7 +110,7 @@ public class ProductController {
     @PostMapping("/update/{id}")
     public String updateProduct(@PathVariable Long id, Product product, BindingResult result) {
         if (result.hasErrors()) {
-            product.setId(Math.toIntExact(id));
+            product.setId(id);
             return "Admin/products/update-product";
         }
 
