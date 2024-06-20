@@ -125,5 +125,12 @@ public class ProductController {
         return "redirect:/admin/products/product-list";
     }
 
-
+    @GetMapping("/detail/{id}")
+    public String showProduct(@PathVariable Long id, Model model) {
+        Product product = productService.getProductById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "/Admin/products/product-detail";
+    }
 }

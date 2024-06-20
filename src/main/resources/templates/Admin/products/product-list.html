@@ -136,7 +136,6 @@
                         <td th:text="${product.name}"></td>
                         <td th:text="${product.price}"></td>
                         <td th:text="${product.category.name}"></td>
-                        <td th:if="${product.ImageURL == null}">No Image</td>
                         <td th:text="${product.description}"></td>
                         <td>
                             <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
