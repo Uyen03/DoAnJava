@@ -1,5 +1,30 @@
+<style>
+    .icon {
+        display: inline-block;
+        position: relative;
+    }
+
+    .icon-shopping-cart {
+        font-size: 24px; /* Đảm bảo kích thước phù hợp */
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -10px; /* Điều chỉnh vị trí tùy theo thiết kế của bạn */
+        right: -10px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+
+</style>
+
+
 <header class="header header-intro-clearance header-4" xmlns:th="http://www.thymeleaf.org" th:layout="header"
         xmlns:sec="http://www.w3.org/1999/xhtml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <div class="header-top">
         <div class="container">
             <div class="header-left">
@@ -109,13 +134,24 @@
                 </div><!-- End .compare-dropdown -->
 
                 <div class="dropdown cart-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                    <a href="/cart" class="cart-link" role="button">
                         <div class="icon">
                             <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
+                            <span class="cart-count"></span>
                         </div>
                         <p>Cart</p>
                     </a>
+<!--                    <a href="/cart" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">-->
+<!--                        <div class="icon">-->
+<!--                            <i class="icon-shopping-cart"></i>-->
+<!--                            <span class="cart-count"></span>-->
+<!--                        </div>-->
+<!--                        <p>Cart</p>-->
+<!--                    </a>-->
+
+
+
+
 
 <!--                    <div class="dropdown-menu dropdown-menu-right">-->
 <!--                        <div class="dropdown-cart-products">-->
@@ -401,3 +437,26 @@
         </div><!-- End .container -->
     </div><!-- End .header-bottom -->
 </header><!-- End .header -->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const cartIcon = document.querySelector('.cart-link');
+
+        cartIcon.addEventListener('click', (event) => {
+            // Không ngăn chặn sự kiện mặc định
+            console.log('Cart icon clicked');
+        });
+
+        // Cập nhật số lượng sản phẩm trong giỏ hàng
+        updateCartCount();
+
+        async function updateCartCount() {
+            try {
+                const response = await fetch('/cart/count');
+                const count = await response.json();
+                document.querySelector('.cart-count').textContent = count;
+            } catch (error) {
+                console.error('Error fetching cart count:', error);
+            }
+        }
+    });
+</script>

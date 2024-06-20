@@ -127,7 +127,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price:</label>
-                        <input type="text" th:field="*{price}" class="form-control" id="price" required>
+                        <input type="text" th:field="${#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}" class="form-control" id="price" required>
+
                     </div>
                     <div class="mb-3">
                         <label for="category" class="form-label">Category:</label>

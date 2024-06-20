@@ -124,7 +124,7 @@
                         <td th:text="${product.id}"></td>
                         <td><img th:src="${product.mainImage}" class="img-thumbnail" style="width: 100px; height: 100px;"></td>
                         <td th:text="${product.name}"></td>
-                        <td th:text="${product.price}"></td>
+                        <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
                         <td th:text="${product.category.name}"></td>
                         <td th:text="${product.description}"></td>
                         <td>

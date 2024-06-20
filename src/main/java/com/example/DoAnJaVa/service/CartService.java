@@ -32,4 +32,9 @@ public class CartService {
     public void clearCart() {
         cartItems.clear();
     }
+
+    public  double calculateTotalPrice(){
+
+        return cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
+    }
 }
