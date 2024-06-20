@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title th:text="${title} ?: 'Your Cart'">Your Cart</title>
     <link rel="stylesheet"
@@ -60,7 +59,7 @@
             <a th:href="@{/order/checkout}" class="btn btn-primary">
                 <i class="bi bi-box-arrow-right"></i> Check Out
             </a>
-            <a th:href="@{/products}" class="btn btn-success">
+            <a th:href="@{/}" class="btn btn-success">
                 <i class="bi bi-cart-plus"></i> Continue Shopping
             </a>
         </div>

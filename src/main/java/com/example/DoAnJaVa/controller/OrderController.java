@@ -1,4 +1,4 @@
-package com.example.DoAnJaVa.AdminController;
+package com.example.DoAnJaVa.controller;
 
 import com.example.DoAnJaVa.model.CartItem;
 import com.example.DoAnJaVa.service.CartService;
@@ -21,7 +21,7 @@ public class OrderController {
     private CartService cartService;
     @GetMapping("/checkout")
     public String checkout() {
-        return "/cart/checkout";
+        return "/Admin/cart/checkout";
     }
     @PostMapping("/submit")
     public String submitOrder(String customerName,String paymentMethod,String shippingMethod,String address,String email) {
@@ -35,6 +35,6 @@ public class OrderController {
     @GetMapping("/confirmation")
     public String orderConfirmation(Model model) {
         model.addAttribute("message", "Your order has been successfully placed.");
-        return "cart/order-confirmation";
+        return "/Admin/cart/order-confirmation";
     }
 }
