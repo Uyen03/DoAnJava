@@ -7,22 +7,7 @@
     <header th:replace="layout/header :: header">
 
     </header>
-    <style>
-        .product {
-      width: 300px; /* Chiều rộng của khung sản phẩm */
-      height: auto; /* Chiều cao tự động điều chỉnh theo nội dung */
-      /* Các thuộc tính khác */
-  }
 
-  .product-image {
-      width: 100px;
-      height: auto;
-      aspect-ratio: 1; /* Tỉ lệ mặt cắt 1:1, có thể thay đổi tùy theo kích thước mong muốn */
-      object-fit: cover; /* Đảm bảo ảnh lấp đầy khung hình */
-      /* Các thuộc tính khác */
-  }
-
-    </style>
     <main class="main">
         <div class="intro-slider-container mb-5">
             <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl"
@@ -87,7 +72,27 @@
             <span class="slider-loader"></span><!-- End .slider-loader -->
         </div><!-- End .intro-slider-container -->
 
+<!-- nút tìmkieemsm-->
+
         <div class="container">
+            <div class="text-center">
+                <div>
+                    <form action="/" method="get">
+                        <div class="input-group">
+                            <input type="search" class="form-control" name="keyword" id="keyword" placeholder="Search product ..." aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary btn-lg" type="submit">
+                                    <i class="icon-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- End .header-search -->
+            </div>
+        </div><!-- End .container -->
+        <div class="container">
+
+
             <h2 class="title text-center mb-4">Explore Popular Categories</h2><!-- End .title text-center -->
 
             <div class="cat-blocks-container">

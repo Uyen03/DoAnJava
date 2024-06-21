@@ -3,14 +3,14 @@ package com.example.DoAnJaVa.controller;
 import com.example.DoAnJaVa.service.CategoryService;
 import com.example.DoAnJaVa.service.ProductService;
 import com.example.DoAnJaVa.model.Product;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -19,12 +19,17 @@ public class HomeController {
     private ProductService productService;
 
 
-    @GetMapping
-    public String home(Model model){
-        model.addAttribute("products", productService.getAllProducts());
+    @GetMapping("/")
+    public String home(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
+        List<Product> products;
+        if (keyword != null && !keyword.isEmpty()) {
+            products = productService.searchProductsByName(keyword);
+        } else {
+            products = productService.getAllProducts();
+        }
+        model.addAttribute("products", products);
         return "index";
     }
-
 
 
 }
