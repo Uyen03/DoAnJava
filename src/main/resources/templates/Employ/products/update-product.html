@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace = "Admin/fragments/head :: head"></head>
-<head th:replace = "Admin/fragments/header :: header"></head>
+<head th:replace = "Employ/fragments/head :: head"></head>
+<head th:replace = "Employ/fragments/header :: header"></head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -42,7 +42,7 @@
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/products/product-list">
+                    <a class="nav-link active" aria-current="page" href="/employ/products/product-list">
                         <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
                         <span class="pull-right-container">
                         <small class="label pull-right bg-green">FE</small>
@@ -51,21 +51,16 @@
                 </li>
 
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/categories/category-list">
+                    <a class="nav-link active" aria-current="page" href="/employ/categories/category-list">
                         <i class="fa fa-th"></i> <span>Quản lý danh mục</span>
                         <span class="pull-right-container">
                         <small class="label pull-right bg-green">FE</small>
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/users">
-                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
 
-                    </a>
-                </li>
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/orders">
+                    <a class="nav-link active" aria-current="page" href="/employ/orders">
                         <i class="fa fa-th"></i> <span>Quản lý đơn hàng </span>
                         <span class="pull-right-container">
                                   <small class="label pull-right bg-green">FE</small>
@@ -112,7 +107,7 @@
                     <h2>Cập nhật sản phẩm</h2>
                 </div>
 
-                <form th:action="@{/admin/products/update/{id}(id=${product.id})}" th:object="${product}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <form th:action="@{/employ/products/update/{id}(id=${product.id})}" th:object="${product}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <div class="form-group">
                         <label for="name" class="form-label">Tên sản phẩm:</label>
                         <input type="text" th:field="*{name}" class="form-control" id="name" required>
@@ -143,7 +138,7 @@
                         <input type="file" id="productimages" multiple accept="image/*" name="productimages" class="form-control"/>
                     </div>
                     <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
-                    <a th:href="@{/admin/products/product-list}" class="btn btn-secondary">Hủy</a>
+                    <a th:href="@{/employ/products/product-list}" class="btn btn-secondary">Hủy</a>
                 </form>
             </div>
         </section>

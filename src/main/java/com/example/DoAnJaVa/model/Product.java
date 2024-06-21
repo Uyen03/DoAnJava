@@ -2,6 +2,7 @@ package com.example.DoAnJaVa.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Product {
     private int nums;
 
     @Column(name = "PRICE", nullable = false)
+    @Min(value = 0, message = "Giá không được nhỏ hơn 0")
     private double price;
 
     @Column(name = "DESCRIPTION")

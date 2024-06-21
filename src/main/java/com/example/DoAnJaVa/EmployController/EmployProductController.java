@@ -1,5 +1,4 @@
-package com.example.DoAnJaVa.AdminController;
-
+package com.example.DoAnJaVa.EmployController;
 import com.example.DoAnJaVa.model.ProductImage;
 import com.example.DoAnJaVa.service.ProductService;
 import com.example.DoAnJaVa.service.CategoryService;
@@ -27,8 +26,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/admin/products")
-public class ProductController {
+@RequestMapping("/employ/products")
+public class EmployProductController {
+
     @Autowired
     private ProductService productService;
     @Autowired
@@ -40,7 +40,7 @@ public class ProductController {
     public String showProductList(Model model) {
         model.addAttribute("products", productService.getAllProducts());
 
-        return "Admin/products/product-list";
+        return "Employ/products/product-list";
     }
 
     // For adding a new product
@@ -48,7 +48,7 @@ public class ProductController {
     public String showAddForm(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "Admin/products/add-product";
+        return "Employ/products/add-product";
     }
 
     // Process the form for adding a new product
@@ -79,7 +79,7 @@ public class ProductController {
                 }
             }
         }
-        return "redirect:/admin/products/product-list";
+        return "redirect:/employ/products/product-list";
     }
     private String saveImageStatic(MultipartFile image) throws IOException {
 //        File saveFile = new ClassPathResource("static/img").getFile();
@@ -125,7 +125,7 @@ public class ProductController {
 
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "Admin/products/update-product";
+        return "Employ/products/update-product";
     }
 
     @PostMapping("/edit/{id}")
@@ -135,7 +135,7 @@ public class ProductController {
 
         if (result.hasErrors()) {
             product.setId(id); // Đảm bảo ID sản phẩm được đặt cho biểu mẫu
-            return "Admin/products/update-product";
+            return "Employ/products/update-product";
         }
 
         // Xử lý cập nhật ảnh chính
@@ -159,7 +159,7 @@ public class ProductController {
         }
 
         productService.updateProduct(product);
-        return "redirect:/admin/products/product-list";
+        return "redirect:/employ/products/product-list";
     }
 
 
@@ -167,7 +167,7 @@ public class ProductController {
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
-        return "redirect:/Admin/products/product-list";
+        return "redirect:/employ/products/product-list";
     }
 
     @GetMapping("/detail/{id}")
@@ -176,6 +176,6 @@ public class ProductController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "/Admin/products/product-detail";
+        return "/Employ/products/product-detail";
     }
 }
