@@ -37,4 +37,6 @@ public class Product {
     private List<ProductImage> images = new ArrayList<>();
 
     private String mainImage;
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Stock stock;
 }
