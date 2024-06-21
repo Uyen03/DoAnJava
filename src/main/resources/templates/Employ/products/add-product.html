@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace = "Admin/fragments/head :: head"></head>
-<head th:replace = "Admin/fragments/header :: header"></head>
+<head th:replace="Employ/fragments/head :: head"></head>
+<head th:replace="Employ/fragments/header :: header"></head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
-    <!--    <div th:replace = "Admin/fragments/header :: header"></div>-->
-    <!-- =============================================== -->
-
     <!-- Left side column. contains the sidebar -->
-
     <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-            <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
                     <img th:src="@{admin/images/avatar.png}" class="img-circle" alt="User Image">
@@ -26,80 +20,37 @@
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
-            <!-- search form -->
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
                 </div>
             </form>
-            <!-- /.search form -->
-            <!-- sidebar menu: : style can be found in sidebar.less -->
-
             <ul class="sidebar-menu" data-widget="tree">
+                <li><a class="nav-link active" aria-current="page" href="/employ/products/product-list"><i class="fa fa-th"></i> <span>Quản lý sản phẩm</span><span class="pull-right-container"><small class="label pull-right bg-green">FE</small></span></a></li>
+                <li><a class="nav-link active" aria-current="page" href="/employ/categories/category-list"><i class="fa fa-th"></i> <span>Quản lý danh mục</span><span class="pull-right-container"><small class="label pull-right bg-green">FE</small></span></a></li>
 
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/products/product-list">
-                        <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
-                        <span class="pull-right-container">
-                        <small class="label pull-right bg-green">FE</small>
-                        </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/categories/category-list">
-                        <i class="fa fa-th"></i> <span>Quản lý danh mục</span>
-                        <span class="pull-right-container">
-                        <small class="label pull-right bg-green">FE</small>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/users">
-                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
-
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/orders">
+                    <a class="nav-link active" aria-current="page" href="/employ/orders">
                         <i class="fa fa-th"></i> <span>Quản lý đơn hàng </span>
                         <span class="pull-right-container">
                                   <small class="label pull-right bg-green">FE</small>
                                 </span>
                     </a>
                 </li>
-
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Quản lý banner</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
+                    <a href="#"><i class="fa fa-dashboard"></i> <span>Quản lý banner</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                     <ul class="treeview-menu">
                         <li><a href=""><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                     </ul>
                 </li>
-
-                <li>
-                    <a href="">
-                        <i class="fa fa-th"></i> <span>Widgets</span>
-                        <span class="pull-right-container">
-              <small class="label pull-right bg-green">Hot</small>
-            </span>
-                    </a>
-                </li>
-
+                <li><a href=""><i class="fa fa-th"></i> <span>Widgets</span><span class="pull-right-container"><small class="label pull-right bg-green">Hot</small></span></a></li>
             </ul>
         </section>
-        <!-- /.sidebar -->
     </aside>
-    <!-- =============================================== -->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -109,10 +60,10 @@
         <section class="content">
             <div class="box">
                 <div class="box-body">
-                    <h2>Cập nhật sản phẩm</h2>
+                    <h2>Thêm sản phẩm</h2>
                 </div>
 
-                <form th:action="@{/admin/products/update/{id}(id=${product.id})}" th:object="${product}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <form th:action="@{/employ/products/add}" th:object="${product}" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name" class="form-label">Tên sản phẩm:</label>
                         <input type="text" th:field="*{name}" class="form-control" id="name" required>
@@ -126,7 +77,7 @@
                     <div class="form-group">
                         <label for="category" class="form-label">Danh mục:</label>
                         <select th:field="*{category}" class="form-control" id="category" required>
-                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == product.category.id}"></option>
+                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                         </select>
                         <div class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
                     </div>
@@ -136,20 +87,18 @@
                     </div>
                     <div class="form-group">
                         <label for="mainImage" class="form-label">Hình ảnh chính:</label>
-                        <input type="file" class="form-control" id="mainImage" name="mainImage">
+                        <input type="file" class="form-control" id="mainImage" name="mainImage" required>
                     </div>
                     <div class="form-group">
                         <label for="productimages" class="form-label">Hình ảnh sản phẩm:</label>
                         <input type="file" id="productimages" multiple accept="image/*" name="productimages" class="form-control"/>
                     </div>
-                    <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
-                    <a th:href="@{/admin/products/product-list}" class="btn btn-secondary">Hủy</a>
+                    <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+                    <a th:href="@{/employ/products/product-list}" class="btn btn-secondary">Hủy</a>
                 </form>
             </div>
         </section>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
@@ -157,19 +106,13 @@
         </div>
         <strong>Copyright &copy; 2024 <a href="https://adminlte.io">LPU</a>.</strong>
     </footer>
-
 </div>
-<!-- ./wrapper -->
-
-<!-- jQuery 3 -->
 
 <script th:src="@{admin/js/jquery.min.js}"></script>
 <script th:src="@{admin/js/jquery-ui.js}"></script>
 <script th:src="@{admin/js/bootstrap.min.js}"></script>
 <script th:src="@{admin/js/adminlte.min.js}"></script>
 <script th:src="@{admin/js/dashboard.js}"></script>
-<!--<script src="tinymce/tinymce.min.js"></script>-->
-<!--<script src="tinymce/config.js"></script>-->
 <script th:src="@{admin/js/function.js}"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace = "Admin/fragments/head :: head"></head>
-<head th:replace = "Admin/fragments/header :: header"></head>
+<head th:replace = "Employ/fragments/head :: head"></head>
+<head th:replace = "Employ/fragments/header :: header"></head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -21,8 +21,7 @@
                     <img th:src="@{admin/images/avatar.png}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <span class="hidden-xs"><span sec:authentication="name"> </span></span>
-                    <br>
+                    <p><span sec:authentication="name"> </span></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -42,7 +41,7 @@
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/products/product-list">
+                    <a class="nav-link active" aria-current="page" href="/employ/products/product-list">
                         <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
                         <span class="pull-right-container">
                         <small class="label pull-right bg-green">FE</small>
@@ -51,21 +50,16 @@
                 </li>
 
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/categories/category-list">
+                    <a class="nav-link active" aria-current="page" href="/employ/categories/category-list">
                         <i class="fa fa-th"></i> <span>Quản lý danh mục</span>
                         <span class="pull-right-container">
                         <small class="label pull-right bg-green">FE</small>
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/users">
-                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
 
-                    </a>
-                </li>
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/orders">
+                    <a class="nav-link active" aria-current="page" href="/employ/orders">
                         <i class="fa fa-th"></i> <span>Quản lý đơn hàng </span>
                         <span class="pull-right-container">
                                   <small class="label pull-right bg-green">FE</small>
@@ -104,48 +98,37 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-
         <!-- Main content -->
         <section class="content">
+
+            <!-- Default box -->
             <div class="box">
-                <div class="box-body">
-                    <h2>Cập nhật sản phẩm</h2>
+
+                <div class="mb-4 text-center">
+                    <h1>Quản lý danh mục</h1>
                 </div>
 
-                <form th:action="@{/admin/products/update/{id}(id=${product.id})}" th:object="${product}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-                    <div class="form-group">
-                        <label for="name" class="form-label">Tên sản phẩm:</label>
-                        <input type="text" th:field="*{name}" class="form-control" id="name" required>
-                        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                <h1 class="mb-4">Update Category</h1>
+                <form th:action="@{/employ/categories/update/{id}(id=${category.id})}"
+                      th:object="${category}" method="post" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="id" class="form-label">ID:</label>
+                        <input type="text" id="id" th:field="*{id}" class="form-control"
+                               disabled="disabled">
                     </div>
-                    <div class="form-group">
-                        <label for="price" class="form-label">Giá:</label>
-                        <input type="text" th:field="*{price}" class="form-control" id="price" required>
-                        <div class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Category Name:</label>
+                        <input type="text" th:field="*{name}" class="form-control" id="name"
+                               required>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}"
+                             th:errors="*{name}">Valid name is required.</div>
                     </div>
-                    <div class="form-group">
-                        <label for="category" class="form-label">Danh mục:</label>
-                        <select th:field="*{category}" class="form-control" id="category" required>
-                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == product.category.id}"></option>
-                        </select>
-                        <div class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="form-label">Mô tả (không bắt buộc):</label>
-                        <textarea th:field="*{description}" class="form-control" id="description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="mainImage" class="form-label">Hình ảnh chính:</label>
-                        <input type="file" class="form-control" id="mainImage" name="mainImage">
-                    </div>
-                    <div class="form-group">
-                        <label for="productimages" class="form-label">Hình ảnh sản phẩm:</label>
-                        <input type="file" id="productimages" multiple accept="image/*" name="productimages" class="form-control"/>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
-                    <a th:href="@{/admin/products/product-list}" class="btn btn-secondary">Hủy</a>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a th:href="@{/employ/categories/category-list}" class="btn btn-link">Cancel</a>
                 </form>
             </div>
+            <!-- /.box -->
+
         </section>
         <!-- /.content -->
     </div>

@@ -1,0 +1,209 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">-->
+<!--<head>-->
+<!--    <title>Chi tiết đơn hàng</title>-->
+<!--    <link rel="stylesheet"-->
+<!--          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">-->
+<!--    <style>-->
+<!--        .product-img {-->
+<!--            width: 80px;-->
+<!--            height: 80px;-->
+<!--            object-fit: cover;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+<!--        .order-actions a {-->
+<!--            margin-right: 10px;-->
+<!--        }-->
+<!--        .table th, .table td {-->
+<!--            vertical-align: middle;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<section layout:fragment="content" class="container mt-5">-->
+<!--    <h1 class="mb-4 text-center">Chi tiết đơn hàng</h1>-->
+<!--    <div>-->
+<!--        <h4>Customer: <span th:text="${order.customerName}"></span></h4>-->
+<!--        <h4>OrderDate: <span th:text="${order.orderDate}"></span></h4>-->
+<!--        <h4>Status: <span th:text="${order.status}"></span></h4>-->
+<!--    </div>-->
+<!--    <table class="table table-bordered table-hover">-->
+<!--        <thead class="table-primary">-->
+<!--        <tr>-->
+<!--            <th>Product</th>-->
+<!--            <th>Product Name</th>-->
+<!--            <th>Quantity</th>-->
+<!--            <th>Price</th>-->
+<!--            <th>Total</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="item : ${order.orderDetails}">-->
+<!--            <td>-->
+<!--                <img th:src="@{|${item.product.mainImage}|}" alt="Product Image" class="product-img img-thumbnail">-->
+<!--            </td>-->
+<!--            <td th:text="${item.product.name}"></td>-->
+<!--            <td th:text="${item.quantity}"></td>-->
+
+<!--            <td th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')}"></td>-->
+<!--            <td th:text="${#numbers.formatDecimal(item.quantity * item.product.price, 0, 'COMMA', 0, 'POINT')}"></td>-->
+
+
+<!--        </tr>-->
+
+<!--        </tbody>-->
+<!--    </table>-->
+<!--    <div class="d-flex justify-content-end mt-4">-->
+<!--        <a href="/admin/orders" class="btn btn-secondary">-->
+<!--            <i class="bi bi-arrow-left"></i> Back to Orders-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</section>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="Employ/fragments/head :: head"></head>
+<head th:replace="Employ/fragments/header :: header">
+    <title>Chi tiết đơn hàng</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        .product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .order-actions a {
+            margin-right: 10px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <!-- Left side column. contains the sidebar -->
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img th:src="@{admin/images/avatar5.png}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <span class="hidden-xs"><span sec:authentication="name"> </span></span>
+                    <br>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </form>
+            <ul class="sidebar-menu" data-widget="tree">
+                <li><a class="nav-link active" aria-current="page" href="/employ/products/product-list"><i class="fa fa-th"></i> <span>Quản lý sản phẩm</span><span class="pull-right-container"><small class="label pull-right bg-green">FE</small></span></a></li>
+                <li><a class="nav-link active" aria-current="page" href="/employ/categories/category-list"><i class="fa fa-th"></i> <span>Quản lý danh mục</span><span class="pull-right-container"><small class="label pull-right bg-green">FE</small></span></a></li>
+
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/employ/orders">
+                        <i class="fa fa-th"></i> <span>Quản lý đơn hàng </span>
+                        <span class="pull-right-container">
+                                  <small class="label pull-right bg-green">FE</small>
+                                </span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-dashboard"></i> <span>Quản lý banner</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    </ul>
+                </li>
+                <li><a href=""><i class="fa fa-th"></i> <span>Widgets</span><span class="pull-right-container"><small class="label pull-right bg-green">Hot</small></span></a></li>
+            </ul>
+        </section>
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="box">
+                <h1 class="mb-4 text-center">Chi tiết đơn hàng</h1>
+                <div>
+                    <h4>Customer: <span th:text="${order.customerName}"></span></h4>
+                    <h4>OrderDate: <span th:text="${order.orderDate}"></span></h4>
+                    <h4>Status: <span th:text="${order.status}"></span></h4>
+                </div>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-primary">
+                    <tr>
+                        <th>Product</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${order.orderDetails}">
+                        <td>
+                            <img th:src="@{|${item.product.mainImage}|}" alt="Product Image" class="product-img img-thumbnail" style="width: auto; height: 100px;">
+                        </td>
+                        <td th:text="${item.product.name}"></td>
+                        <td th:text="${item.quantity}"></td>
+
+                        <td th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+                        <td th:text="${#numbers.formatDecimal(item.quantity * item.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+
+
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end mt-4">
+                    <a href="/employ/orders" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to Orders
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+
+        </div>
+        <strong>Copyright &copy; 2024 <a href="https://adminlte.io">LPU</a>.</strong>
+    </footer>
+</div>
+
+<script th:src="@{admin/js/jquery.min.js}"></script>
+<script th:src="@{admin/js/jquery-ui.js}"></script>
+<script th:src="@{admin/js/bootstrap.min.js}"></script>
+<script th:src="@{admin/js/adminlte.min.js}"></script>
+<script th:src="@{admin/js/dashboard.js}"></script>
+<script th:src="@{admin/js/function.js}"></script>
+</body>
+</html>

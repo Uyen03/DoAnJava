@@ -20,6 +20,7 @@ public class OrderController {
     private CartService cartService;
     @GetMapping("/checkout")
     public String checkout() {
+
         return "/Admin/cart/checkout";
     }
     @PostMapping("/submit")
