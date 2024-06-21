@@ -44,4 +44,24 @@ public class OrderService {
         cartService.clearCart();
         return order;
     }
+
+
+    // Method to get all orders
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    // Method to get order by ID
+    public Order getOrderById(Long orderId) {
+        return orderRepository.findById(orderId).orElse(null);
+    }
+
+    // Method to update order status
+    public void updateOrderStatus(Long orderId, String newStatus) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order != null) {
+            order.setStatus(newStatus);
+            orderRepository.save(order);
+        }
+    }
 }
