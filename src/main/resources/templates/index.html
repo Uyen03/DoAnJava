@@ -4,7 +4,25 @@
 
 <body>
 <div class="page-wrapper">
-    <header th:replace="layout/header :: header"> </header>
+    <header th:replace="layout/header :: header">
+
+    </header>
+    <style>
+        .product {
+      width: 300px; /* Chiều rộng của khung sản phẩm */
+      height: auto; /* Chiều cao tự động điều chỉnh theo nội dung */
+      /* Các thuộc tính khác */
+  }
+
+  .product-image {
+      width: 100px;
+      height: auto;
+      aspect-ratio: 1; /* Tỉ lệ mặt cắt 1:1, có thể thay đổi tùy theo kích thước mong muốn */
+      object-fit: cover; /* Đảm bảo ảnh lấp đầy khung hình */
+      /* Các thuộc tính khác */
+  }
+
+    </style>
     <main class="main">
         <div class="intro-slider-container mb-5">
             <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl"
@@ -251,8 +269,10 @@
                                         <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>
                                     </div>
                                     <div class="product-action">
+                                        <a href="/cart/add" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
                                         <a  class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
                                     </div>
+
                                 </figure>
                                 <div class="product-body">
                                     <div class="product-cat">
@@ -261,8 +281,8 @@
                                     <a th:href="@{/admin/products/detail/{id}(id=${product.id})}">
                                         <h5 class="card-title" th:text="${product.name}" >Product Name</h5>
                                     </a>
-                                    <div class="product-price" th:text="${product.price}">
-                                        $1,199.99
+                                    <div class="product-price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">
+
                                     </div>
                                     <div class="ratings-container">
                                         <div class="ratings">
@@ -621,3 +641,28 @@
 
 
 }</html>
+
+
+
+<script>
+    function addToCart(productId) {
+        // Sử dụng fetch hoặc XMLHttpRequest để gửi yêu cầu POST đến endpoint /cart/add
+        fetch('/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productId: productId }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Xử lý phản hồi ở đây nếu cần
+            console.log('Added to cart successfully');
+        })
+        .catch(error => {
+            console.error('Error adding to cart:', error);
+        });
+    }
+</script>

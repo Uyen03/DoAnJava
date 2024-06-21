@@ -27,4 +27,17 @@ public class Order {
     private String email;
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
+    private String status;
+    private String formattedTotalPrice;
+    private double totalPrice;
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+
 }

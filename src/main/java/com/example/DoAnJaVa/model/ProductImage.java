@@ -12,15 +12,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "productImages")
-    public class ProductImage {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+public class ProductImage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String ImagePath;
+    @Column(name = "image_path")  // Đặt tên cột theo quy ước chuẩn
+    private String imagePath;
 
-        @ManyToOne
-        @JoinColumn(name = "product")
-        private Product product;
-    }
+    @ManyToOne
+    @JoinColumn(name = "product_id")  // Đặt tên cột rõ ràng hơn
+    private Product product;
+}
 

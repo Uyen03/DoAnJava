@@ -1,5 +1,30 @@
+<style>
+    .icon {
+        display: inline-block;
+        position: relative;
+    }
+
+    .icon-shopping-cart {
+        font-size: 24px; /* Đảm bảo kích thước phù hợp */
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -10px; /* Điều chỉnh vị trí tùy theo thiết kế của bạn */
+        right: -10px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+
+</style>
+
+
 <header class="header header-intro-clearance header-4" xmlns:th="http://www.thymeleaf.org" th:layout="header"
         xmlns:sec="http://www.w3.org/1999/xhtml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <div class="header-top">
         <div class="container">
             <div class="header-left">
@@ -80,16 +105,16 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <ul class="compare-products">
-                            <li class="compare-product">
-                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
-                            </li>
-                            <li class="compare-product">
-                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
-                            </li>
-                        </ul>
+<!--                        <ul class="compare-products">-->
+<!--                            <li class="compare-product">-->
+<!--                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>-->
+<!--                                <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>-->
+<!--                            </li>-->
+<!--                            <li class="compare-product">-->
+<!--                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>-->
+<!--                                <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>-->
+<!--                            </li>-->
+<!--                        </ul>-->
 
                         <div class="compare-actions">
                             <a href="#" class="action-link">Clear All</a>
@@ -109,68 +134,79 @@
                 </div><!-- End .compare-dropdown -->
 
                 <div class="dropdown cart-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                    <a href="/cart" class="cart-link" role="button">
                         <div class="icon">
                             <i class="icon-shopping-cart"></i>
-                            <span class="cart-count">2</span>
+                            <span class="cart-count"></span>
                         </div>
                         <p>Cart</p>
                     </a>
+<!--                    <a href="/cart" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">-->
+<!--                        <div class="icon">-->
+<!--                            <i class="icon-shopping-cart"></i>-->
+<!--                            <span class="cart-count"></span>-->
+<!--                        </div>-->
+<!--                        <p>Cart</p>-->
+<!--                    </a>-->
 
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-cart-products">
-                            <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.html">Beige knitted elastic runner shoes</a>
-                                    </h4>
 
-                                    <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                </div><!-- End .product-cart-details -->
 
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img th:src="@{user/images/products/cart/product-1.jpg}" alt="product">
-                                    </a>
-                                </figure>
-                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            </div><!-- End .product -->
 
-                            <div class="product">
-                                <div class="product-cart-details">
-                                    <h4 class="product-title">
-                                        <a href="product.html">Blue utility pinafore denim dress</a>
-                                    </h4>
 
-                                    <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                </div><!-- End .product-cart-details -->
+<!--                    <div class="dropdown-menu dropdown-menu-right">-->
+<!--                        <div class="dropdown-cart-products">-->
+<!--                            <div class="product">-->
+<!--                                <div class="product-cart-details">-->
+<!--                                    <h4 class="product-title">-->
+<!--                                        <a href="product.html">Beige knitted elastic runner shoes</a>-->
+<!--                                    </h4>-->
 
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img th:src="@{user/images/products/cart/product-2.jpg}" alt="product">
-                                    </a>
-                                </figure>
-                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                            </div><!-- End .product -->
-                        </div><!-- End .cart-product -->
+<!--                                    <span class="cart-product-info">-->
+<!--                                                <span class="cart-product-qty">1</span>-->
+<!--                                                x $84.00-->
+<!--                                            </span>-->
+<!--                                </div>&lt;!&ndash; End .product-cart-details &ndash;&gt;-->
 
-                        <div class="dropdown-cart-total">
-                            <span>Total</span>
+<!--                                <figure class="product-image-container">-->
+<!--                                    <a href="product.html" class="product-image">-->
+<!--                                        <img th:src="@{user/images/products/cart/product-1.jpg}" alt="product">-->
+<!--                                    </a>-->
+<!--                                </figure>-->
+<!--                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>-->
+<!--                            </div>&lt;!&ndash; End .product &ndash;&gt;-->
 
-                            <span class="cart-total-price">$160.00</span>
-                        </div><!-- End .dropdown-cart-total -->
+<!--                            <div class="product">-->
+<!--                                <div class="product-cart-details">-->
+<!--                                    <h4 class="product-title">-->
+<!--                                        <a href="product.html">Blue utility pinafore denim dress</a>-->
+<!--                                    </h4>-->
 
-                        <div class="dropdown-cart-action">
-                            <a href="cart.html" class="btn btn-primary">View Cart</a>
-                            <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .dropdown-cart-total -->
-                    </div><!-- End .dropdown-menu -->
+<!--                                    <span class="cart-product-info">-->
+<!--                                                <span class="cart-product-qty">1</span>-->
+<!--                                                x $76.00-->
+<!--                                            </span>-->
+<!--                                </div>&lt;!&ndash; End .product-cart-details &ndash;&gt;-->
+
+<!--                                <figure class="product-image-container">-->
+<!--                                    <a href="product.html" class="product-image">-->
+<!--                                        <img th:src="@{user/images/products/cart/product-2.jpg}" alt="product">-->
+<!--                                    </a>-->
+<!--                                </figure>-->
+<!--                                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>-->
+<!--                            </div>&lt;!&ndash; End .product &ndash;&gt;-->
+<!--                        </div>&lt;!&ndash; End .cart-product &ndash;&gt;-->
+
+<!--                        <div class="dropdown-cart-total">-->
+<!--                            <span>Total</span>-->
+
+<!--                            <span class="cart-total-price">$160.00</span>-->
+<!--                        </div>&lt;!&ndash; End .dropdown-cart-total &ndash;&gt;-->
+
+<!--                        <div class="dropdown-cart-action">-->
+<!--                            <a href="cart.html" class="btn btn-primary">View Cart</a>-->
+<!--                            <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>-->
+<!--                        </div>&lt;!&ndash; End .dropdown-cart-total &ndash;&gt;-->
+<!--                    </div>&lt;!&ndash; End .dropdown-menu &ndash;&gt;-->
                 </div><!-- End .cart-dropdown -->
             </div><!-- End .header-right -->
         </div><!-- End .container -->
@@ -401,3 +437,26 @@
         </div><!-- End .container -->
     </div><!-- End .header-bottom -->
 </header><!-- End .header -->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const cartIcon = document.querySelector('.cart-link');
+
+        cartIcon.addEventListener('click', (event) => {
+            // Không ngăn chặn sự kiện mặc định
+            console.log('Cart icon clicked');
+        });
+
+        // Cập nhật số lượng sản phẩm trong giỏ hàng
+        updateCartCount();
+
+        async function updateCartCount() {
+            try {
+                const response = await fetch('/cart/count');
+                const count = await response.json();
+                document.querySelector('.cart-count').textContent = count;
+            } catch (error) {
+                console.error('Error fetching cart count:', error);
+            }
+        }
+    });
+</script>
