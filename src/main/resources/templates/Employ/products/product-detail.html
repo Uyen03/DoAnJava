@@ -76,7 +76,7 @@
                 <p class="lead" th:text="${product.description}">Product Description</p>
                 <p class="text-muted"><strong>Category: </strong><span th:text="${product.category.name}">Category Name</span></p>
                 <p class="text-muted"><strong>Price: </strong><span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">$0.00</span></p>
-                
+
                 <div class="product-previews">
                     <div th:each="image : ${product.images}" class="product-preview">
                         <img th:src="@{${image.imagePath}}" alt="Thumbnail" class="thumbnail">

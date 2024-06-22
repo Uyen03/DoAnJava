@@ -48,4 +48,15 @@ public class ProductService {
     public List<Product> searchProductsByName(String name) {
         return productRepository.findByNameContainingIgnoreCase(name);
     }
+
+    public void reduceStock(Long productId, int quantity) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalStateException("Product with ID " + productId + " does not exist."));
+        if (product.getNums() >= quantity) {
+            product.setNums(product.getNums() - quantity);
+            productRepository.save(product);
+        } else {
+            throw new IllegalArgumentException("Không đủ hàng tồn kho");
+        }
+    }
 }

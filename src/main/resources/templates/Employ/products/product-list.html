@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace = "Employ/fragments/head :: head">
+<head th:replace="Employ/fragments/head :: head">
     <!-- DataTables CSS -->
     <link th:href="@{https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css}" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
 </head>
-<head th:replace = "Employ/fragments/header :: header"></head>
-
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-
-    <!--    <div th:replace = "Admin/fragments/header :: header"></div>-->
-    <!-- =============================================== -->
 
     <!-- Left side column. contains the sidebar -->
     <aside class="main-sidebar">
@@ -44,27 +39,18 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li>
                     <a class="nav-link active" aria-current="page" href="/employ/products/product-list">
-                        <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
+                        <i class="fa fa-th"></i> <span>Quản lý kho</span>
                         <span class="pull-right-container">
                             <small class="label pull-right bg-green">FE</small>
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/employ/categories/category-list">
-                        <i class="fa fa-th"></i> <span>Quản lý danh mục</span>
-                        <span class="pull-right-container">
-                            <small class="label pull-right bg-green">FE</small>
-                        </span>
-                    </a>
-                </li>
-
                 <li>
                     <a class="nav-link active" aria-current="page" href="/employ/orders">
-                        <i class="fa fa-th"></i> <span>Quản lý đơn hàng </span>
+                        <i class="fa fa-th"></i> <span>Quản lý đơn hàng</span>
                         <span class="pull-right-container">
-                                  <small class="label pull-right bg-green">FE</small>
-                                </span>
+                            <small class="label pull-right bg-green">FE</small>
+                        </span>
                     </a>
                 </li>
                 <li class="treeview">
@@ -95,28 +81,21 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-
-
         <!-- Main content -->
         <section class="content">
             <!-- Default box -->
             <div class="box">
                 <div class="mb-4 text-center">
-                    <h1> Quản lý sản phẩm</h1>
-                </div>
-                <div>
-                    <a th:href="@{/employ/products/add}" class="btn btn-primary mb-3">Add New Product</a>
+                    <h1> Quản lý kho</h1>
                 </div>
                 <table id="productsTable" class="table table-bordered table-hover">
                     <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Actions</th>
+                        <th>Ảnh</th>
+                        <th>Tên</th>
+                        <th>Số lượng</th>
+                        <th>Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -124,12 +103,9 @@
                         <td th:text="${product.id}"></td>
                         <td><img th:src="${product.mainImage}" class="img-thumbnail" style="width: auto; height: 100px;"></td>
                         <td th:text="${product.name}"></td>
-                        <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
-                        <td th:text="${product.category.name}"></td>
-                        <td th:text="${product.description}"></td>
+                        <td th:text="${product.nums}"></td>
                         <td>
-                            <a th:href="@{/employ/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
-                            <a th:href="@{/employ/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                            <a th:href="@{/employ/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Cập nhật</a>
                         </td>
                     </tr>
                     </tbody>
@@ -142,9 +118,7 @@
     <!-- /.content-wrapper -->
 
     <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-
-        </div>
+        <div class="pull-right hidden-xs"></div>
         <strong>Copyright &copy; 2024 <a href="https://adminlte.io">LPU</a>.</strong>
     </footer>
 </div>

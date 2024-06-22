@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <div class="bg-light d-flex justify-content-center align-items-center vh-100">
-    <div sec:authorize="!hasAuthority('EMPLOYEE')" class="text-center p-5 bg-white rounded shadow">
+    <div sec:authorize="!hasAnyAuthority('EMPLOYEE','ADMIN')" class="text-center p-5 bg-white rounded shadow">
         <h1 class="text-danger">Thông Báo</h1>
         <p>Đây là trang quản trị. Bạn không có quyền truy cập trang này.</p>
         <a href="/" class="btn btn-primary">Quay lại trang chủ</a>
     </div>
 </div>
 <div class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
-    <div sec:authorize="hasAuthority('EMPLOYEE')">
+    <div sec:authorize="hasAnyAuthority('EMPLOYEE','ADMIN')">
     <head th:replace = "Employ/fragments/head :: head"></head>
     <head th:replace = "Employ/fragments/header :: header"></head>
 
@@ -52,18 +52,10 @@
 
                     <li>
                         <a class="nav-link active" aria-current="page" href="/employ/products/product-list">
-                            <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
+                            <i class="fa fa-th"></i> <span>Quản lý kho </span>
                             <span class="pull-right-container">
                   <small class="label pull-right bg-green">FE</small>
                 </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link active" aria-current="page" href="/employ/categories/category-list">
-                            <i class="fa fa-th"></i> <span>Quản lý danh mục</span>
-                            <span class="pull-right-container">
-                        <small class="label pull-right bg-green">FE</small>
-                        </span>
                         </a>
                     </li>
                     <li>
