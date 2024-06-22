@@ -43,4 +43,9 @@ public class ProductService {
         }
         productRepository.deleteById(id);
     }
+
+    // Thêm phương thức tìm kiếm sản phẩm theo tên
+    public List<Product> searchProductsByName(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
 }

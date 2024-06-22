@@ -39,8 +39,6 @@ public class Product {
     private List<ProductImage> images = new ArrayList<>();
 
     private String mainImage;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
-    private List<ProductImage> ProductImage;  // Danh sách ảnh sản phẩm
-
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private Stock stock;
 }
