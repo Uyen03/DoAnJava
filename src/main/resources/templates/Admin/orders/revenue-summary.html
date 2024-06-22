@@ -1,15 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace = "Admin/fragments/head :: head"></head>
 <head th:replace = "Admin/fragments/header :: header"></head>
-
-<body class="hold-transition skin-blue sidebar-mini">
+<head>
+    <meta charset="UTF-8">
+    <title>Total Revenue</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .total-revenue {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .total-revenue span {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .chart-container {
+            margin-top: 40px;
+        }
+        canvas {
+            width: 100% !important;
+            height: 400px !important;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" >
 <!-- Site wrapper -->
 <div class="wrapper">
-
-    <!--    <div th:replace = "Admin/fragments/header :: header"></div>-->
-    <!-- =============================================== -->
-
     <!-- Left side column. contains the sidebar -->
 
     <aside class="main-sidebar">
@@ -21,8 +56,7 @@
                     <img th:src="@{admin/images/avatar.png}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <span class="hidden-xs"><span sec:authentication="name"> </span></span>
-                    <br>
+                    <p><span sec:authentication="name"> </span></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -98,8 +132,8 @@
                     <a href="">
                         <i class="fa fa-th"></i> <span>Widgets</span>
                         <span class="pull-right-container">
-              <small class="label pull-right bg-green">Hot</small>
-            </span>
+                        <small class="label pull-right bg-green">Hot</small>
+                         </span>
                     </a>
                 </li>
 
@@ -107,66 +141,36 @@
         </section>
         <!-- /.sidebar -->
     </aside>
-    <!-- =============================================== -->
+<body>
+<div class="content-wrapper">
+<div class="container">
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-
-
-        <!-- Main content -->
-        <section class="content">
-
-            <!-- Default box -->
-            <div class="box">
-
-                <div class="mb-4 text-center">
-                    <h1>Quản lý danh mục</h1>
-                </div>
-
-                <div>
-                    <div>
-                        <a th:href="@{/admin/categories/add}" class="btn btn-primary mb-3">Add New Category</a>
-                    </div>
-                </div>
-                <table class="table table-bordered table-hover">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="category : ${categories}">
-                        <td th:text="${category.id}"></td>
-                        <td th:text="${category.name}"></td>
-                        <td>
-                            <div>
-                                <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}"
-                                   class="btn btn-success btn-sm">Edit</a>
-                                <a th:href="@{/admin/categories/delete/{id}(id=${category.id})}"
-                                   class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.box -->
-
-        </section>
-        <!-- /.content -->
+    <h1>Total Revenue</h1>
+    <div class="total-revenue">
+        <p>Total Revenue: <span th:text="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA',  0, 'POINT')}"></span></p>
     </div>
-    <!-- /.content-wrapper -->
-
+    <div class="chart-container">
+        <h2>Daily Revenue</h2>
+        <canvas id="dailyRevenueChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>Monthly Revenue</h2>
+        <canvas id="monthlyRevenueChart"></canvas>
+    </div>
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
 
         </div>
         <strong>Copyright &copy; 2024 <a href="https://adminlte.io">LPU</a>.</strong>
     </footer>
+    </div>
+
 
 </div>
+</body>
+
+
+
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
@@ -179,5 +183,74 @@
 <!--<script src="tinymce/tinymce.min.js"></script>-->
 <!--<script src="tinymce/config.js"></script>-->
 <script th:src="@{admin/js/function.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Convert the dailyRevenue and monthlyRevenue objects to JSON strings
+    var dailyRevenue = /*[[${dailyRevenue}]]*/ {};
+    var monthlyRevenue = /*[[${monthlyRevenue}]]*/ {};
+
+    // Log the data to console for debugging
+    console.log("Daily Revenue:", dailyRevenue);
+    console.log("Monthly Revenue:", monthlyRevenue);
+
+    // Daily Revenue Chart
+    const dailyLabels = Object.keys(dailyRevenue);
+    const dailyData = Object.values(dailyRevenue);
+
+    const dailyCtx = document.getElementById('dailyRevenueChart').getContext('2d');
+    const dailyChart = new Chart(dailyCtx, {
+        type: 'bar',
+        data: {
+            labels: dailyLabels,
+            datasets: [{
+                label: 'Daily Revenue',
+                data: dailyData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Monthly Revenue Chart
+    const monthlyLabels = Object.keys(monthlyRevenue).map(function(key) {
+        return key.replace("-", "/"); // Format YearMonth to be more readable, e.g., "2024-06" to "2024/06"
+    });
+    const monthlyData = Object.values(monthlyRevenue);
+
+    const monthlyCtx = document.getElementById('monthlyRevenueChart').getContext('2d');
+    const monthlyChart = new Chart(monthlyCtx, {
+        type: 'bar',
+        data: {
+            labels: monthlyLabels,
+            datasets: [{
+                label: 'Monthly Revenue',
+                data: monthlyData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    /*]]>*/
+</script>
+</div>
 </body>
+
+
 </html>

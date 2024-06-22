@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Total Revenue</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,14 +31,86 @@
             font-weight: bold;
             color: #4CAF50;
         }
+        .chart-container {
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
-<div class="container">
+<div >
     <h1>Total Revenue</h1>
     <div class="total-revenue">
         <p>Total Revenue: <span th:text="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA',  0, 'POINT')}"></span></p>
     </div>
+    <div class="chart-container">
+        <h2>Daily Revenue</h2>
+        <canvas id="dailyRevenueChart" width="300" height="200"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>Monthly Revenue</h2>
+        <canvas id="monthlyRevenueChart" width="300" height="200"></canvas>
+    </div>
 </div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var dailyRevenue = /*[[${dailyRevenue}]]*/ {};
+    var monthlyRevenue = /*[[${monthlyRevenue}]]*/ {};
+
+    // Daily Revenue Chart
+    const dailyLabels = Object.keys(dailyRevenue);
+    const dailyData = Object.values(dailyRevenue);
+
+    const dailyCtx = document.getElementById('dailyRevenueChart').getContext('2d');
+    const dailyChart = new Chart(dailyCtx, {
+        type: 'bar',
+        data: {
+            labels: dailyLabels,
+            datasets: [{
+                label: 'Daily Revenue',
+                data: dailyData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Monthly Revenue Chart
+    const monthlyLabels = Object.keys(monthlyRevenue).map(function(key) {
+        return key.replace("-", "/"); // Format YearMonth to be more readable, e.g., "2024-06" to "2024/06"
+    });
+    const monthlyData = Object.values(monthlyRevenue);
+
+    const monthlyCtx = document.getElementById('monthlyRevenueChart').getContext('2d');
+    const monthlyChart = new Chart(monthlyCtx, {
+        type: 'bar',
+        data: {
+            labels: monthlyLabels,
+            datasets: [{
+                label: 'Monthly Revenue',
+                data: monthlyData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    /*]]>*/
+</script>
 </body>
 </html>

@@ -13,8 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/orders")
@@ -82,6 +85,32 @@ public class AdminOrderController {
         String formattedTotalRevenue = formatter.print(totalRevenue, locale);
         model.addAttribute("totalRevenue", totalRevenue);
         return "Admin/orders/revenue"; // Đường dẫn tương đối tới view hiển thị tổng doanh thu
+    }
+
+    @GetMapping("/revenue/daily")
+    public String getDailyRevenue(Model model) {
+        Map<LocalDate, Double> dailyRevenue = orderService.calculateDailyRevenue();
+        model.addAttribute("dailyRevenue", dailyRevenue);
+        return "Admin/orders/daily-revenue"; // Đường dẫn tới view hiển thị doanh thu hàng ngày
+    }
+
+    @GetMapping("/revenue/monthly")
+    public String getMonthlyRevenue(Model model) {
+        Map<YearMonth, Double> monthlyRevenue = orderService.calculateMonthlyRevenue();
+        model.addAttribute("monthlyRevenue", monthlyRevenue);
+        return "Admin/orders/monthly-revenue"; // Đường dẫn tới view hiển thị doanh thu hàng tháng
+    }
+    @GetMapping("/revenue/summary")
+    public String getRevenueSummary(Model model) {
+        double totalRevenue = orderService.calculateTotalRevenue();
+        Map<LocalDate, Double> dailyRevenue = orderService.calculateDailyRevenue();
+        Map<YearMonth, Double> monthlyRevenue = orderService.calculateMonthlyRevenue();
+
+        model.addAttribute("totalRevenue", totalRevenue);
+        model.addAttribute("dailyRevenue", dailyRevenue);
+        model.addAttribute("monthlyRevenue", monthlyRevenue);
+
+        return "Admin/orders/revenue-summary";
     }
 
 

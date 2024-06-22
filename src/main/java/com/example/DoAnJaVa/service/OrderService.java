@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -84,6 +87,36 @@ public class OrderService {
 
     public void saveOrder(Order order) {
         orderRepository.save(order); // Lưu cập nhật đối tượng Order vào CSDL
+    }
+
+    // Phương thức tính toán doanh thu hàng ngày
+    public Map<LocalDate, Double> calculateDailyRevenue() {
+        List<Order> orders = orderRepository.findAll();
+        Map<LocalDate, Double> dailyRevenue = new HashMap<>();
+
+        for (Order order : orders) {
+            LocalDate orderDate = order.getOrderDate();
+            double orderTotal = order.getTotalPrice();
+
+            dailyRevenue.merge(orderDate, orderTotal, Double::sum);
+        }
+
+        return dailyRevenue;
+    }
+
+    // Phương thức tính toán doanh thu hàng tháng
+    public Map<YearMonth, Double> calculateMonthlyRevenue() {
+        List<Order> orders = orderRepository.findAll();
+        Map<YearMonth, Double> monthlyRevenue = new HashMap<>();
+
+        for (Order order : orders) {
+            YearMonth yearMonth = YearMonth.from(order.getOrderDate());
+            double orderTotal = order.getTotalPrice();
+
+            monthlyRevenue.merge(yearMonth, orderTotal, Double::sum);
+        }
+
+        return monthlyRevenue;
     }
 
 }
