@@ -127,7 +127,7 @@
             <!-- Default box -->
             <div class="box">
 
-                <div class="box-body">
+                <div class="mb-4 text-center">
                     <h1>User List</h1>
                 </div>
 
@@ -139,7 +139,9 @@
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>ROLE</th>
                         <th>Actions</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -147,6 +149,7 @@
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.email}"></td>
+                        <td th:each="role : ${user.roles}" th:text="${role.name}"></td>
                         <td>
                             <a th:href="@{'/admin/users/edit/' + ${user.id}}">Edit</a>
                             <a th:href="@{'/admin/users/delete/' + ${user.id}}" onclick="return confirm('Are you sure?')">Delete</a>
