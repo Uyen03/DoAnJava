@@ -6,9 +6,11 @@ import com.example.DoAnJaVa.model.OrderDetail;
 import com.example.DoAnJaVa.service.CartService;
 import com.example.DoAnJaVa.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.format.number.CurrencyStyleFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +31,8 @@ public class AdminOrderController {
         for (Order order : orders) {
             double totalPrice = calculateOrderTotalPrice(order);
             order.setTotalPrice(totalPrice);
+
+            orderService.saveOrder(order);
         }
         model.addAttribute("orders", orders);
         return "Admin/orders/orders"; // Đường dẫn tương đối tới tệp orders.html
@@ -49,7 +53,7 @@ public class AdminOrderController {
 
     // Helper method to calculate total price for an order
     private double calculateOrderTotalPrice(Order order) {
-        double totalPrice = 000.000;
+        double totalPrice = 0.0;
         List<OrderDetail> orderDetails = order.getOrderDetails(); // Assuming this retrieves order details
 
         for (OrderDetail detail : orderDetails) {
@@ -66,6 +70,20 @@ public class AdminOrderController {
         double totalPrice = cartService.calculateTotalPrice();
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalPrice", totalPrice);
+
     }
+
+    @GetMapping("/revenue")
+    public String calculateTotalRevenue(Model model) {
+        double totalRevenue = orderService.calculateTotalRevenue();
+
+        CurrencyStyleFormatter formatter = new CurrencyStyleFormatter();
+        Locale locale = LocaleContextHolder.getLocale();
+        String formattedTotalRevenue = formatter.print(totalRevenue, locale);
+        model.addAttribute("totalRevenue", totalRevenue);
+        return "Admin/orders/revenue"; // Đường dẫn tương đối tới view hiển thị tổng doanh thu
+    }
+
+
 
 }

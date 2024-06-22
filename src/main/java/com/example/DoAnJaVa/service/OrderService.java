@@ -64,4 +64,26 @@ public class OrderService {
             orderRepository.save(order);
         }
     }
+
+    public double calculateTotalRevenue() {
+//        List<Order> completedOrders = orderRepository.findByStatus("COMPLETED"); // Lấy các đơn hàng đã hoàn thành
+//        List<Order> allOrders = orderRepository.findAll();
+//        double totalRevenue = 0.0;
+//        for (Order order : completedOrders) {
+//            totalRevenue += order.getTotalPrice(); // Giả sử đã tính tổng giá trị của mỗi đơn hàng khi lưu vào CSDL
+//        }
+//        return totalRevenue;
+
+        List<Order> allOrders = orderRepository.findAll(); // Lấy tất cả các đơn hàng
+        double totalRevenue = 0.0;
+        for (Order order : allOrders) {
+            totalRevenue += order.getTotalPrice();
+        }
+        return totalRevenue;
+    }
+
+    public void saveOrder(Order order) {
+        orderRepository.save(order); // Lưu cập nhật đối tượng Order vào CSDL
+    }
+
 }
