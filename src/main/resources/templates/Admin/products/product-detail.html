@@ -76,14 +76,20 @@
                 <p class="lead" th:text="${product.description}">Product Description</p>
                 <p class="text-muted"><strong>Category: </strong><span th:text="${product.category.name}">Category Name</span></p>
                 <p class="text-muted"><strong>Price: </strong><span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">$0.00</span></p>
-                
+                <p class="text-muted">
+                    <strong>Available Quantity: </strong>
+                    <span th:text="${product.nums}"></span>
+                    <span th:if="${product.nums == 0}" style="color: red; font-weight: bold;"> (Tạm hết hàng)</span>
+                </p>
+
+
                 <div class="product-previews">
                     <div th:each="image : ${product.images}" class="product-preview">
                         <img th:src="@{${image.imagePath}}" alt="Thumbnail" class="thumbnail">
                     </div>
                 </div>
                 <form th:action="@{/cart/add}" method="post" class="d-flex align-items-center mt-3">
-                    <input type="number" name="quantity" min="1" value="1" class="form-control me-2" style="width: 70px;">
+                    <input type="number" name="quantity" min="1" th:max="${product.nums}" value="1" class="form-control me-2" style="width: 70px;">
                     <input type="hidden" th:value="${product.id}" name="productId"/>
                     <button type="submit" class="btn btn-warning btn-sm me-2"><i class="fas fa-cart-plus"></i> Add to Cart</button>
                     <a th:href="@{/}" class="btn btn-success"><i class="fas fa-shopping-bag"></i> Continue Shopping</a>
@@ -92,6 +98,6 @@
         </div>
     </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min</script>
+</.js">body>
 </html>

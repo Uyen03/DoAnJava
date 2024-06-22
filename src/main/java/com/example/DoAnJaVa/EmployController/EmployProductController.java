@@ -118,50 +118,75 @@ public class EmployProductController {
 //        return "redirect:/admin/products/product-list";
 //    }
 
+//    @GetMapping("/edit/{id}")
+//    public String showEditForm(@PathVariable Long id, Model model) {
+//        Product product = productService.getProductById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Id sản phẩm không hợp lệ:" + id));
+//
+//        model.addAttribute("product", product);
+//        model.addAttribute("categories", categoryService.getAllCategories());
+//        return "Employ/products/update-product";
+//    }
+//
+//    @PostMapping("/edit/{id}")
+//    public String updateProduct(@PathVariable Long id, @Valid Product product, BindingResult result,
+//                                @RequestParam(value = "mainImage", required = false) MultipartFile mainImage,
+//                                @RequestParam(value = "productimages", required = false) MultipartFile[] imageList) throws IOException {
+//
+//        if (result.hasErrors()) {
+//            product.setId(id); // Đảm bảo ID sản phẩm được đặt cho biểu mẫu
+//            return "Employ/products/update-product";
+//        }
+//
+//        // Xử lý cập nhật ảnh chính
+//        if (mainImage != null && !mainImage.isEmpty()) {
+//            String imageName = saveImageStatic(mainImage);
+//            product.setMainImage("/img/" + imageName);
+//        }
+//
+//        // Xử lý cập nhật ảnh bổ sung
+//        if (imageList != null) {
+//            for (MultipartFile image : imageList) {
+//                if (!image.isEmpty()) {
+//                    String imageUrl = saveImageStatic(image);
+//                    ProductImage productImage = new ProductImage();
+//                    productImage.setImagePath("/img/" + imageUrl);
+//                    productImage.setProduct(product);
+//                    product.getImages().add(productImage);
+//                    productImageService.addProductImage(productImage);
+//                }
+//            }
+//        }
+//
+//        productService.updateProduct(product);
+//        return "redirect:/employ/products/product-list";
+//    }
+
+
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Id sản phẩm không hợp lệ:" + id));
 
         model.addAttribute("product", product);
-        model.addAttribute("categories", categoryService.getAllCategories());
         return "Employ/products/update-product";
     }
 
     @PostMapping("/edit/{id}")
-    public String updateProduct(@PathVariable Long id, @Valid Product product, BindingResult result,
-                                @RequestParam(value = "mainImage", required = false) MultipartFile mainImage,
-                                @RequestParam(value = "productimages", required = false) MultipartFile[] imageList) throws IOException {
-
+    public String updateProduct(@PathVariable Long id, @Valid @ModelAttribute("product") Product product, BindingResult result) {
         if (result.hasErrors()) {
-            product.setId(id); // Đảm bảo ID sản phẩm được đặt cho biểu mẫu
             return "Employ/products/update-product";
         }
 
-        // Xử lý cập nhật ảnh chính
-        if (mainImage != null && !mainImage.isEmpty()) {
-            String imageName = saveImageStatic(mainImage);
-            product.setMainImage("/img/" + imageName);
-        }
+        // Lấy sản phẩm từ cơ sở dữ liệu để cập nhật số lượng
+        Product existingProduct = productService.getProductById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Id sản phẩm không hợp lệ:" + id));
 
-        // Xử lý cập nhật ảnh bổ sung
-        if (imageList != null) {
-            for (MultipartFile image : imageList) {
-                if (!image.isEmpty()) {
-                    String imageUrl = saveImageStatic(image);
-                    ProductImage productImage = new ProductImage();
-                    productImage.setImagePath("/img/" + imageUrl);
-                    productImage.setProduct(product);
-                    product.getImages().add(productImage);
-                    productImageService.addProductImage(productImage);
-                }
-            }
-        }
+        existingProduct.setNums(product.getNums()); // Cập nhật số lượng sản phẩm
 
-        productService.updateProduct(product);
+        productService.updateProduct(existingProduct);
         return "redirect:/employ/products/product-list";
     }
-
 
     // Handle request to delete a product
     @GetMapping("/delete/{id}")

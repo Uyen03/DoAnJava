@@ -290,11 +290,6 @@
                                         </div>
                                         <span class="ratings-text"></span>
                                     </div>
-                                    <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()" class="d-flex align-items-center">
-                                        <input type="number" name="quantity" min="1" value="1" class="form-control me-2" style="width: 70px;">
-                                        <input type="hidden" th:value="${product.id}" name="productId"/>
-                                        <button type="submit" class="btn btn-warning btn-sm">Add to Cart</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
