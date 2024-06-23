@@ -114,6 +114,14 @@
                                 </span>
                     </a>
                 </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/contact-list">
+                        <i class="fa fa-th"></i> <span>Quản lý liên hệ </span>
+                        <span class="pull-right-container">
+                                  <small class="label pull-right bg-green">FE</small>
+                                </span>
+                    </a>
+                </li>
 
                 <li class="treeview">
                     <a href="#">
@@ -145,16 +153,16 @@
 <div class="content-wrapper">
 <div class="container">
 
-    <h1>Total Revenue</h1>
+    <h1>Doanh thu</h1>
     <div class="total-revenue">
-        <p>Total Revenue: <span th:text="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA',  0, 'POINT')}"></span></p>
+        <p>Tổng doanh thu: <span th:text="${#numbers.formatDecimal(totalRevenue, 0, 'COMMA',  0, 'POINT')}"></span></p>
     </div>
     <div class="chart-container">
-        <h2>Daily Revenue</h2>
+        <h2>Doanh thu theo ngày</h2>
         <canvas id="dailyRevenueChart"></canvas>
     </div>
     <div class="chart-container">
-        <h2>Monthly Revenue</h2>
+        <h2>Doanh thu theo tháng</h2>
         <canvas id="monthlyRevenueChart"></canvas>
     </div>
     <footer class="main-footer">
