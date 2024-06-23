@@ -1,4 +1,5 @@
-<header class="header header-intro-clearance header-4" xmlns:th="http://www.thymeleaf.org" th:layout="header">
+<header class="header header-intro-clearance header-4" xmlns:th="http://www.thymeleaf.org" th:layout="header"
+        xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="header-top">
         <div class="container">
             <div class="header-left">
@@ -6,39 +7,23 @@
             </div><!-- End .header-left -->
 
             <div class="header-right">
-
-                <ul class="top-menu">
-                    <li>
-                        <a href="#">Links</a>
-                        <ul>
-                            <li>
-                                <div class="header-dropdown">
-                                    <a href="#">USD</a>
-                                    <div class="header-menu">
-                                        <ul>
-                                            <li><a href="#">Eur</a></li>
-                                            <li><a href="#">Usd</a></li>
-                                        </ul>
-                                    </div><!-- End .header-menu -->
-                                </div>
-                            </li>
-                            <li>
-                                <div class="header-dropdown">
-                                    <a href="#">English</a>
-                                    <div class="header-menu">
-                                        <ul>
-                                            <li><a href="#">English</a></li>
-                                            <li><a href="#">French</a></li>
-                                            <li><a href="#">Spanish</a></li>
-                                        </ul>
-                                    </div><!-- End .header-menu -->
-                                </div>
-                            </li>
-                            <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
-                        </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+                    <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
+                        <span class="navbar-text text-dark">
+                            Xin chào, <a href="/profile"><span sec:authentication="name"></span></a>
+                        </span>
                     </li>
-                </ul><!-- End .top-menu -->
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post" class="d-flex align-items-center">
+                            <button class="btn btn-outline-dark" type="submit">Logout</button>
+                        </form>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-dark" href="/login">Login</a>
+                    </li>
+                </ul>
             </div><!-- End .header-right -->
+
 
         </div><!-- End .container -->
     </div><!-- End .header-top -->

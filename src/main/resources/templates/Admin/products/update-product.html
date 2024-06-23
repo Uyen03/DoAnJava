@@ -7,7 +7,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 
-<!--    <div th:replace = "Admin/fragments/header :: header"></div>-->
+    <!--    <div th:replace = "Admin/fragments/header :: header"></div>-->
     <!-- =============================================== -->
 
     <!-- Left side column. contains the sidebar -->
@@ -41,7 +41,7 @@
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/Admin/products/product-list">
+                    <a href="admin/product">
                         <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
                         <span class="pull-right-container">
               <small class="label pull-right bg-green">FE</small>
@@ -99,9 +99,24 @@
             <div class="box">
 
                 <div class="box-body">
-                   <h1>Trang quản trị </h1>
+                    <h1>Quản lý sản phẩm</h1>
                 </div>
 
+                <form th:action="@{/products/update/{id}(id=${product.id})}" th:object="${product}" method="post"
+                      class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" th:field="*{name}" class="form-control" id="name" required>
+                        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price:</label>
+                        <input type="text" th:field="*{price}" class="form-control" id="price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description (optional):</label>  <textarea th:field="*{description}" class="form-control" id="description"></textarea>  </div>
+                    <button type="submit" class="btn btn-primary">Update Product</button>  <a th:href="@{/products/{id}(id=${product.id})}" class="btn btnlink">Cancel</a>
+                </form>
             </div>
             <!-- /.box -->
 
