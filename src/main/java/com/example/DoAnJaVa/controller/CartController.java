@@ -17,30 +17,28 @@ import java.util.List;
 public class CartController {
     @Autowired
     private CartService cartService;
+
     @Autowired
     private ProductService productService;
+
     @GetMapping
     public String showCart(Model model) {
         model.addAttribute("cartItems", cartService.getCartItems());
-        return "/Admin/cart/cart";
+        model.addAttribute("totalPrice", cartService.calculateTotalPrice());
+        return "Admin/cart/cart";
     }
+
     @PostMapping("/add")
     public String addToCart(@RequestParam Long productId, @RequestParam int quantity, RedirectAttributes redirectAttributes) {
-        // Retrieve the product by its ID
         Product product = productService.getProductById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + productId));
 
-        // Check if the requested quantity exceeds the available stock
         if (quantity > product.getNums()) {
-            // Add an error message to the redirect attributes
             redirectAttributes.addFlashAttribute("error", "Cannot add more items than available in stock");
-            // Redirect back to the product detail page
             return "redirect:/products/" + productId;
         }
 
-        // Add the product to the cart
         cartService.addToCart(productId, quantity);
-        // Redirect to the cart page
         return "redirect:/cart";
     }
 
@@ -49,11 +47,13 @@ public class CartController {
         cartService.removeFromCart(productId);
         return "redirect:/cart";
     }
+
     @GetMapping("/clear")
     public String clearCart() {
         cartService.clearCart();
         return "redirect:/cart";
     }
+
     @ModelAttribute
     public void populateModel(Model model) {
         List<CartItem> cartItems = cartService.getCartItems();
