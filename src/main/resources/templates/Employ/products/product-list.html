@@ -6,18 +6,20 @@
     <!-- Bootstrap CSS -->
     <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
 </head>
+<head th:replace = "Employ/fragments/head :: head"></head>
+<head th:replace = "Employ/fragments/header :: header"></head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
     <!-- Left side column. contains the sidebar -->
-    <aside class="main-sidebar">
+    <aside class="main-sidebar" style="background-color:  #00008B    !important">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img th:src="@{admin/images/avatar.png}" class="img-circle" alt="User Image">
+                    <img th:src="@{~/admin/images/avatar5.png}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <span class="hidden-xs"><span sec:authentication="name"> </span></span>
@@ -51,6 +53,14 @@
                         <span class="pull-right-container">
                             <small class="label pull-right bg-green">FE</small>
                         </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/employ/contact-list">
+                        <i class="fa fa-th"></i> <span>Quản lý liên hệ </span>
+                        <span class="pull-right-container">
+                                  <small class="label pull-right bg-green">FE</small>
+                                </span>
                     </a>
                 </li>
                 <li class="treeview">
