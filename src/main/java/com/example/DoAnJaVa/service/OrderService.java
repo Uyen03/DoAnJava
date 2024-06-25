@@ -116,4 +116,9 @@ public class OrderService {
         return monthlyRevenue;
     }
 
+    // Phương thức lấy danh sách đơn hàng theo ngày
+    public List<Order> getOrdersByDate(LocalDate date) {
+        return orderRepository.findByOrderDate(date);
+    }
+
 }
