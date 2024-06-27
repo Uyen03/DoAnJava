@@ -41,3 +41,45 @@
 	margin-left: 5px
 }
 
+/* Tùy chỉnh nút Previous và Next */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+            background-color: #007bff; /* Màu nền */
+            color: white; /* Màu chữ */
+            border-radius: 25px; /* Bo góc */
+            padding: 10px 20px; /* Khoảng cách nội dung */
+            margin: 0 10px; /* Khoảng cách giữa các nút */
+            border: none; /* Bỏ viền */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Bóng đổ */
+            transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+            font-size: 18px; /* Tăng kích thước font chữ */
+        }
+
+        /* Tùy chỉnh trạng thái hover của nút */
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background-color: #0056b3; /* Màu nền khi hover */
+            color: white; /* Màu chữ khi hover */
+        }
+
+        /* Tùy chỉnh trạng thái active của nút */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background-color: #0056b3; /* Màu nền khi active */
+            color: white; /* Màu chữ khi active */
+            border: none; /* Bỏ viền */
+        }
+
+        /* Tăng kích thước các số trang */
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            font-size: 18px; /* Tăng kích thước font chữ */
+            margin: 0 5px; /* Khoảng cách giữa các số trang */
+            padding: 10px 15px; /* Khoảng cách nội dung */
+            border-radius: 25px; /* Bo góc cho các số trang */
+        }
+
+        /* Tăng khoảng cách giữa các số trang và nút Previous/Next */
+        .dataTables_wrapper .dataTables_paginate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; /* Khoảng cách giữa các phần tử trong pagination */
+        }
