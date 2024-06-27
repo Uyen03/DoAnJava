@@ -321,58 +321,109 @@
 
         <div class="mb-5"></div><!-- End .mb-5 -->
 
-        <div class="container for-you">
-            <div class="heading heading-flex mb-3">
-                <div class="heading-left">
-                    <h2 class="title">Recommendation For You</h2><!-- End .title -->
-                </div><!-- End .heading-left -->
+<!--        <div class="container for-you">-->
+<!--            <div class="heading heading-flex mb-3">-->
+<!--                <div class="heading-left">-->
+<!--                    <h2 class="title">Recommendation For You</h2>&lt;!&ndash; End .title &ndash;&gt;-->
+<!--                </div>&lt;!&ndash; End .heading-left &ndash;&gt;-->
 
-                <div class="heading-right">
-                    <a href="#" class="title-link">View All Recommendadion <i class="icon-long-arrow-right"></i></a>
-                </div><!-- End .heading-right -->
-            </div><!-- End .heading -->
+<!--                <div class="heading-right">-->
+<!--                    <a href="#" class="title-link">View All Recommendadion <i class="icon-long-arrow-right"></i></a>-->
+<!--                </div>&lt;!&ndash; End .heading-right &ndash;&gt;-->
+<!--            </div>&lt;!&ndash; End .heading &ndash;&gt;-->
 
-            <div class="products">
-                <div class="row justify-content-center">
-                    <div class="col-6 col-md-4 col-lg-3">
-                        <div class="product product-2">
-                            <figure class="product-media">
-                                <span class="product-label label-circle label-sale">Sale</span>
-                                <a href="product.html">
-                                    <img th:src="@{user/images/demos/demo-4/products/product-10.jpg}" alt="Product image" class="product-image">
-                                </a>
+<!--            <div class="products">-->
+<!--                <div class="row justify-content-center">-->
+<!--                    <div class="col-6 col-md-4 col-lg-3">-->
+<!--                        <div class="product product-2">-->
+<!--                            <figure class="product-media">-->
+<!--                                <span class="product-label label-circle label-sale">Sale</span>-->
+<!--                                <a href="product.html">-->
+<!--                                    <img th:src="@{user/images/demos/demo-4/products/product-10.jpg}" alt="Product image" class="product-image">-->
+<!--                                </a>-->
 
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>
-                                </div><!-- End .product-action -->
+<!--                                <div class="product-action-vertical">-->
+<!--                                    <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>-->
+<!--                                </div>&lt;!&ndash; End .product-action &ndash;&gt;-->
 
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
-                                    <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
-                                </div><!-- End .product-action -->
-                            </figure><!-- End .product-media -->
+<!--                                <div class="product-action">-->
+<!--                                    <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>-->
+<!--                                    <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>-->
+<!--                                </div>&lt;!&ndash; End .product-action &ndash;&gt;-->
+<!--                            </figure>&lt;!&ndash; End .product-media &ndash;&gt;-->
 
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Headphones</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">Beats by Dr. Dre Wireless  Headphones</a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    <span class="new-price">$279.99</span>
-                                    <span class="old-price">Was $349.99</span>
-                                </div><!-- End .product-price -->
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 40%;"></div><!-- End .ratings-val -->
-                                    </div><!-- End .ratings -->
-                                    <span class="ratings-text"></span>
-                                </div><!-- End .rating-container -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-                    </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
-                </div><!-- End .row -->
-            </div><!-- End .products -->
-        </div><!-- End .container -->
+<!--                            <div class="product-body">-->
+<!--                                <div class="product-cat">-->
+<!--                                    <a href="#">Headphones</a>-->
+<!--                                </div>&lt;!&ndash; End .product-cat &ndash;&gt;-->
+<!--                                <h3 class="product-title"><a href="product.html">Beats by Dr. Dre Wireless  Headphones</a></h3>&lt;!&ndash; End .product-title &ndash;&gt;-->
+<!--                                <div class="product-price">-->
+<!--                                    <span class="new-price">$279.99</span>-->
+<!--                                    <span class="old-price">Was $349.99</span>-->
+<!--                                </div>&lt;!&ndash; End .product-price &ndash;&gt;-->
+<!--                                <div class="ratings-container">-->
+<!--                                    <div class="ratings">-->
+<!--                                        <div class="ratings-val" style="width: 40%;"></div>&lt;!&ndash; End .ratings-val &ndash;&gt;-->
+<!--                                    </div>&lt;!&ndash; End .ratings &ndash;&gt;-->
+<!--                                    <span class="ratings-text"></span>-->
+<!--                                </div>&lt;!&ndash; End .rating-container &ndash;&gt;-->
+<!--                            </div>&lt;!&ndash; End .product-body &ndash;&gt;-->
+<!--                        </div>&lt;!&ndash; End .product &ndash;&gt;-->
+<!--                    </div>&lt;!&ndash; End .col-sm-6 col-md-4 col-lg-3 &ndash;&gt;-->
+<!--                </div>&lt;!&ndash; End .row &ndash;&gt;-->
+<!--            </div>&lt;!&ndash; End .products &ndash;&gt;-->
+            <div class="container for-you">
+                <div class="heading heading-flex mb-3">
+                    <div class="heading-left">
+                        <h2 class="title">Recommendation For You</h2>
+                    </div>
+
+                    <div class="heading-right">
+                        <a href="#" class="title-link">View All Recommendations <i class="icon-long-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="products">
+                    <div class="row">
+                        <div th:each="product : ${products}" class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="product product-2 ">
+                                <figure class="product-media">
+                                    <span class="product-label label-circle label-sale" >Sale</span>
+                                    <a th:href="@{/admin/products/detail/{id}(id=${product.id})}">
+                                        <img th:src="${product.mainImage}" alt="Product image" class="image img-fluid" style="width: 300px; height: 300px; object-fit: cover;">
+                                    </a>
+                                    <div class="product-action-vertical">
+                                        <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>
+                                    </div>
+                                    <div class="product-action">
+                                        <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to cart</span></a>
+                                        <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
+                                    </div>
+                                </figure>
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a href="#" th:text="${product.category.name}"></a>
+                                    </div>
+                                    <a th:href="@{/admin/products/detail/{id}(id=${product.id})}">
+                                        <h5 class="card-title" th:text="${product.name}" >Product Name</h5>
+                                    </a>
+                                    <div class="product-price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">
+
+                                    </div>
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: 100%;"></div>
+                                        </div>
+                                        <span class="ratings-text"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--        </div>&lt;!&ndash; End .container &ndash;&gt;-->
 
         <div class="mb-4"></div><!-- End .mb-4 -->
 
