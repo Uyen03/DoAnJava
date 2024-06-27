@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace = "Admin/fragments/head :: head"></head>
-<head th:replace = "Admin/fragments/header :: header"></head>
+<head th:replace = "Admin/fragments/header :: header">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+</head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -136,7 +138,7 @@
                         <a th:href="@{/admin/categories/add}" class="btn btn-primary mb-3">Add New Category</a>
                     </div>
                 </div>
-                <table class="table table-bordered table-hover">
+                <table id="categoryTable" class="table table-bordered table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -187,5 +189,26 @@
 <!--<script src="tinymce/tinymce.min.js"></script>-->
 <!--<script src="tinymce/config.js"></script>-->
 <script th:src="@{admin/js/function.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        $('#categoryTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "language": {
+                "paginate": {
+                    "previous": "<", // Thay đổi văn bản nút Previous
+                    "next": ">" // Thay đổi văn bản nút Next
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

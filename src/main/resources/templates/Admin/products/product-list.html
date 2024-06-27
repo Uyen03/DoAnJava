@@ -5,6 +5,7 @@
     <link th:href="@{https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css}" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
 <head th:replace = "Admin/fragments/header :: header"></head>
 
@@ -189,7 +190,13 @@
             "ordering": true,
             "info": true,
             "autoWidth": false,
-            "responsive": true
+            "responsive": true,
+            "language": {
+                "paginate": {
+                    "previous": "<", // Thay đổi văn bản nút Previous
+                    "next": ">" // Thay đổi văn bản nút Next
+                }
+            }
         });
     });
 </script>
