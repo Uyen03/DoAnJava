@@ -118,6 +118,22 @@ img {
   max-width: 100%;
   height: auto; }
 
+.thumbnail {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+.product-previews {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
 .bg-light {
   background-color: #f8f8f8 !important; }
 

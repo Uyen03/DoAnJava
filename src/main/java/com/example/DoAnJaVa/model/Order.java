@@ -40,5 +40,14 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+
 
 }
