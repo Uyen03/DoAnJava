@@ -65,6 +65,7 @@ public class AdminOrderController {
         return "redirect:/admin/orders/" + orderId;
     }
 
+
     // Helper method to calculate total price for an order
     private double calculateOrderTotalPrice(Order order) {
         double totalPrice = 0.0;

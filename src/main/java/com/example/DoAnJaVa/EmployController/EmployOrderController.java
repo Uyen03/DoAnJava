@@ -50,7 +50,7 @@ public class EmployOrderController {
 
     // Helper method to calculate total price for an order
     private double calculateOrderTotalPrice(Order order) {
-        double totalPrice = 000.000;
+        double totalPrice = 0.0;
         List<OrderDetail> orderDetails = order.getOrderDetails(); // Assuming this retrieves order details
 
         for (OrderDetail detail : orderDetails) {
@@ -59,7 +59,6 @@ public class EmployOrderController {
 
         return totalPrice;
     }
-
 
     @ModelAttribute
     public void populateModel(Model model) {
