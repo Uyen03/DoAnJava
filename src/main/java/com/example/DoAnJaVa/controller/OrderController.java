@@ -1,6 +1,7 @@
 package com.example.DoAnJaVa.controller;
 
 import com.example.DoAnJaVa.model.CartItem;
+import com.example.DoAnJaVa.model.Order;
 import com.example.DoAnJaVa.service.CartService;
 import com.example.DoAnJaVa.service.OrderService;
 import com.example.DoAnJaVa.service.VnPayService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.UnsupportedEncodingException;
@@ -39,17 +42,29 @@ public class OrderController {
                               @RequestParam String shippingMethod,
                               @RequestParam String address,
                               @RequestParam String email,
-                              RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes,
+                              HttpSession session) {
         List<CartItem> cartItems = cartService.getCartItems();
         if (cartItems.isEmpty()) {
             return "redirect:/cart"; // Redirect if cart is empty
         }
 
+        // Lưu thông tin vào session để sử dụng sau khi thanh toán thành công
+        session.setAttribute("customerName", customerName);
+        session.setAttribute("paymentMethod", paymentMethod);
+        session.setAttribute("shippingMethod", shippingMethod);
+        session.setAttribute("address", address);
+        session.setAttribute("email", email);
+        session.setAttribute("cartItems", cartItems);
+
         // Xử lý khi người dùng chọn phương thức thanh toán VNPay
         if (paymentMethod.equals("vnpay")) {
             try {
                 Double totalAmount = cartService.calculateTotalPrice();
-                String paymentUrl = vnPayService.createPaymentUrl(totalAmount, "Order #" + System.currentTimeMillis());
+                String txnRef = "Order-" + System.currentTimeMillis();
+                session.setAttribute("txnRef", txnRef); // Save txnRef in session
+
+                String paymentUrl = vnPayService.createPaymentUrl(totalAmount, txnRef);
                 return "redirect:" + paymentUrl;
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                 redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi tạo URL thanh toán VNPay");
@@ -58,7 +73,7 @@ public class OrderController {
         }
 
         // Xử lý các phương thức thanh toán khác
-        orderService.createOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems);
+        orderService.createOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems, null);
         return "redirect:/order/confirmation";
     }
 
@@ -68,17 +83,6 @@ public class OrderController {
         return "/Admin/cart/order-confirmation";
     }
 
-    @GetMapping("/vnpay_return")
-    public String vnpayReturn(@RequestParam Map<String, String> params, Model model) {
-        // Xử lý kết quả trả về từ VNPay
-        String responseCode = params.get("vnp_ResponseCode");
-        if ("00".equals(responseCode)) {
-            model.addAttribute("message", "Thanh toán thành công!");
-        } else {
-            model.addAttribute("message", "Thanh toán thất bại!");
-        }
-        return "/Admin/cart/order-confirmation";
-    }
     @GetMapping("/payment/vnpay")
     public String createPayment(@RequestParam Double amount, @RequestParam String orderInfo) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         String paymentUrl = vnPayService.createPaymentUrl(amount, orderInfo);
@@ -86,9 +90,45 @@ public class OrderController {
     }
 
     @GetMapping("/payment/vnpay_return")
-    @ResponseBody
-    public String handlePaymentReturn(@RequestParam Map<String, String> params) {
-        // Xử lý phản hồi thanh toán từ VNPay
-        return "Payment Successful";
+    public String handlePaymentReturn(@RequestParam Map<String, String> params, Model model, HttpSession session) {
+        String responseCode = params.get("vnp_ResponseCode");
+        if ("00".equals(responseCode)) {
+            // Lấy thông tin từ session
+            String customerName = (String) session.getAttribute("customerName");
+            String paymentMethod = (String) session.getAttribute("paymentMethod");
+            String shippingMethod = (String) session.getAttribute("shippingMethod");
+            String address = (String) session.getAttribute("address");
+            String email = (String) session.getAttribute("email");
+            List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+            String txnRef = params.get("vnp_TxnRef");
+
+            if (customerName != null && paymentMethod != null && shippingMethod != null && address != null && email != null && cartItems != null) {
+                // Lưu đơn hàng và cập nhật trạng thái
+                saveOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems, txnRef);
+
+                // Xóa thông tin trong session sau khi lưu đơn hàng
+                session.removeAttribute("customerName");
+                session.removeAttribute("paymentMethod");
+                session.removeAttribute("shippingMethod");
+                session.removeAttribute("address");
+                session.removeAttribute("email");
+                session.removeAttribute("cartItems");
+                session.removeAttribute("txnRef");
+
+                //Don cart sau khi thuc hien dat hang
+                cartService.clearCart();
+                model.addAttribute("message", "Thanh toán thành công!");
+            } else {
+                model.addAttribute("message", "Thông tin đơn hàng không đầy đủ!");
+            }
+        } else {
+            model.addAttribute("message", "Thanh toán thất bại!");
+        }
+        return "/Admin/cart/order-confirmation";
+    }
+
+    private void saveOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems, String txnRef) {
+        orderService.createOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems, txnRef);
+        orderService.updateOrderStatus(txnRef, "Completed");  // Cập nhật trạng thái đơn hàng ngay sau khi tạo
     }
 }

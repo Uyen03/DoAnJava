@@ -44,13 +44,16 @@ public class EmployOrderController {
 
     @PostMapping("/{orderId}/updateStatus")
     public String updateOrderStatus(@PathVariable Long orderId, @RequestParam String newStatus) {
-        orderService.updateOrderStatus(orderId, newStatus);
-        return "redirect:/employ/orders/" + orderId;
+        Order order = orderService.getOrderById(orderId);
+        if (order != null) {
+            orderService.updateOrderStatus(order.getTxnRef(), newStatus);
+        }
+        return "redirect:/employ/orders/order-details/" + orderId;
     }
 
     // Helper method to calculate total price for an order
     private double calculateOrderTotalPrice(Order order) {
-        double totalPrice = 000.000;
+        double totalPrice = 0.0;
         List<OrderDetail> orderDetails = order.getOrderDetails(); // Assuming this retrieves order details
 
         for (OrderDetail detail : orderDetails) {
@@ -59,7 +62,6 @@ public class EmployOrderController {
 
         return totalPrice;
     }
-
 
     @ModelAttribute
     public void populateModel(Model model) {

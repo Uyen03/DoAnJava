@@ -30,6 +30,7 @@ public class Order {
     private String status;
     private String formattedTotalPrice;
     private double totalPrice;
+    private String txnRef;
 
     public double getTotalPrice() {
         return totalPrice;
