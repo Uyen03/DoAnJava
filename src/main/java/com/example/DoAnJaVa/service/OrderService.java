@@ -72,7 +72,6 @@ public class OrderService {
             orderRepository.save(order);
         }
     }
-
     public double calculateTotalRevenue() {
         List<Order> allOrders = orderRepository.findAll(); // Lấy tất cả các đơn hàng
         double totalRevenue = 0.0;
