@@ -44,11 +44,8 @@ public class EmployOrderController {
 
     @PostMapping("/{orderId}/updateStatus")
     public String updateOrderStatus(@PathVariable Long orderId, @RequestParam String newStatus) {
-        Order order = orderService.getOrderById(orderId);
-        if (order != null) {
-            orderService.updateOrderStatus(order.getTxnRef(), newStatus);
-        }
-        return "redirect:/employ/orders/order-details/" + orderId;
+        orderService.updateOrderStatus(orderId, newStatus);
+        return "redirect:/employ/orders/" + orderId;
     }
 
     // Helper method to calculate total price for an order

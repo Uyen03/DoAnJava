@@ -20,14 +20,17 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Transactional
 public class OrderService {
-
-    private final OrderRepository orderRepository;
-    private final OrderDetailRepository orderDetailRepository;
-    private final CartService cartService;
-    private final ProductService productService;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private CartService cartService; // Assuming you have a CartService
+    @Autowired
+    private ProductService productService; // Assuming you have a ProductService
 
     @Transactional
-    public Order createOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems, String txnRef) {
+    public Order createOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems) {
         Order order = new Order();
         order.setCustomerName(customerName);
         order.setPaymentMethod(paymentMethod);
@@ -35,11 +38,7 @@ public class OrderService {
         order.setAddress(address);
         order.setOrderDate(LocalDate.now());
         order.setEmail(email);
-        order.setTotalPrice(cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum());
-        order.setStatus("Pending");
-        order.setTxnRef(txnRef); // Set transaction reference
         order = orderRepository.save(order);
-
         for (CartItem item : cartItems) {
             OrderDetail detail = new OrderDetail();
             detail.setOrder(order);
@@ -50,10 +49,8 @@ public class OrderService {
             // Giảm số lượng sản phẩm trong kho
             productService.reduceStock(item.getProduct().getId(), item.getQuantity());
         }
-
-        // Clear the cart after order placement
+        // Optionally clear the cart after order placement
         cartService.clearCart();
-
         return order;
     }
 
@@ -68,13 +65,14 @@ public class OrderService {
     }
 
     // Method to update order status
-    public void updateOrderStatus(String txnRef, String newStatus) {
-        Order order = orderRepository.findByTxnRef(txnRef);
+    public void updateOrderStatus(Long orderId, String newStatus) {
+        Order order = orderRepository.findById(orderId).orElse(null);
         if (order != null) {
             order.setStatus(newStatus);
             orderRepository.save(order);
         }
     }
+
     public double calculateTotalRevenue() {
         List<Order> allOrders = orderRepository.findAll(); // Lấy tất cả các đơn hàng
         double totalRevenue = 0.0;
@@ -84,7 +82,6 @@ public class OrderService {
         return totalRevenue;
     }
 
-    // Method to save order
     public void saveOrder(Order order) {
         orderRepository.save(order); // Lưu cập nhật đối tượng Order vào CSDL
     }
