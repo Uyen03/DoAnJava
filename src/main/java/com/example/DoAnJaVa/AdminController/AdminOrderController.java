@@ -35,7 +35,7 @@ public class AdminOrderController {
             orderService.saveOrder(order);
         }
         model.addAttribute("orders", orders);
-        return "Admin/orders/orders"; // Đường dẫn tương đối tới tệp orders.html
+        return "Admin/orders/orders"; // Đường dẫn tương đối tới tệp order-details.html
     }
 
     @GetMapping("/order-details/{orderId}")

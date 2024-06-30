@@ -32,7 +32,7 @@ public class EmployOrderController {
             order.setTotalPrice(totalPrice);
         }
         model.addAttribute("orders", orders);
-        return "Employ/orders/orders"; // Đường dẫn tương đối tới tệp orders.html
+        return "Employ/orders/orders"; // Đường dẫn tương đối tới tệp order-details.html
     }
 
     @GetMapping("/order-details/{orderId}")

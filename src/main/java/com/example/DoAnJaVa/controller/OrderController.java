@@ -115,7 +115,7 @@ public class OrderController {
                 session.removeAttribute("cartItems");
                 session.removeAttribute("txnRef");
 
-                //Don cart sau khi thuc hien dat hang
+                // Don cart sau khi thuc hien dat hang
                 cartService.clearCart();
                 model.addAttribute("message", "Thanh toán thành công!");
             } else {
@@ -130,5 +130,19 @@ public class OrderController {
     private void saveOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems, String txnRef) {
         orderService.createOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems, txnRef);
         orderService.updateOrderStatus(txnRef, "Completed");  // Cập nhật trạng thái đơn hàng ngay sau khi tạo
+    }
+
+    @GetMapping("/view")
+    public String viewOrders(Model model) {
+        List<Order> orders = orderService.getOrdersForCurrentUser();
+        model.addAttribute("orders", orders);
+        return "/Admin/cart/orders"; // Tên của file HTML hiển thị danh sách đơn hàng
+    }
+
+    @GetMapping("/view/{id}")
+    public String viewOrderDetails(@PathVariable("id") Long orderId, Model model) {
+        Order order = orderService.getOrderById(orderId);
+        model.addAttribute("order", order);
+        return "/Admin/cart/order-details"; // Tên của file HTML hiển thị chi tiết đơn hàng
     }
 }

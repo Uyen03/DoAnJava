@@ -1,12 +1,13 @@
 package com.example.DoAnJaVa.service;
-
 import com.example.DoAnJaVa.model.CartItem;
 import com.example.DoAnJaVa.model.Order;
 import com.example.DoAnJaVa.model.OrderDetail;
 import com.example.DoAnJaVa.repository.OrderDetailRepository;
 import com.example.DoAnJaVa.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,5 +87,21 @@ public class OrderService {
     // Method to save order
     public void saveOrder(Order order) {
         orderRepository.save(order); // Lưu cập nhật đối tượng Order vào CSDL
+    }
+
+    // Method to get orders for the current user
+
+    public List<Order> getOrdersForCurrentUser() {
+        // Lấy thông tin người dùng hiện tại từ context bảo mật của Spring Security
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        // Giả sử bạn có một phương thức trong OrderRepository để lấy đơn hàng theo tên người dùng
+        return orderRepository.findByCustomerName(username);
     }
 }
