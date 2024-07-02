@@ -1,5 +1,5 @@
 <footer class="footer" xmlns:th="http://www.thymeleaf.org" th:layout="footer">
-    <div class="cta bg-image bg-dark pt-4 pb-5 mb-0" style="background-image: url(user/images/demos/demo-4/bg-5.jpg);">
+    <div class="cta bg-image bg-dark pt-4 pb-5 mb-0" th:style="'background-image: url(' + @{user/images/demos/demo-4/bg-5.jpg} + ');'">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-sm-10 col-md-8 col-lg-6">
@@ -10,7 +10,7 @@
 
                     <form action="#">
                         <div class="input-group input-group-round">
-                            <input type="email" class="form-control form-control-white" placeholder="Enter your Email Address" aria-label="Email Adress" required>
+                            <input type="email" class="form-control form-control-white" placeholder="Enter your Email Address" aria-label="Email Address" required>
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit"><span>Subscribe</span><i class="icon-long-arrow-right"></i></button>
                             </div><!-- .End .input-group-append -->
@@ -25,13 +25,13 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget widget-about">
-                        <img th:src="@{user/images/demos/demo-4/logo-footer.png}" class="footer-logo" alt="Footer Logo" width="105" height="25">
-                        <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+                        <img th:src="@{/user/images/demos/demo-4/logo-footer.png}" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                        <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.</p>
 
                         <div class="widget-call">
                             <i class="icon-phone"></i>
                             Got Question? Call us 24/7
-                            <a href="tel:#">+0123 456 789</a>
+                            <a href="tel:+0123456789">+0123 456 789</a>
                         </div><!-- End .widget-call -->
                     </div><!-- End .widget about-widget -->
                 </div><!-- End .col-sm-6 col-lg-3 -->
@@ -84,9 +84,9 @@
 
     <div class="footer-bottom">
         <div class="container">
-            <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+            <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
             <figure class="footer-payments">
-                <img th:src="@{user/images/payments.png}" alt="Payment methods" width="272" height="20">
+                <img th:src="@{/user/images/payments.png}" alt="Payment methods" width="272" height="20">
             </figure><!-- End .footer-payments -->
         </div><!-- End .container -->
     </div><!-- End .footer-bottom -->
