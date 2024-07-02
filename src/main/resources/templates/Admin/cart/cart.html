@@ -96,13 +96,16 @@
                 const total = price * quantity;
                 totalCell.innerText = new Intl.NumberFormat('en-US').format(total);
             } else {
-                alert('Error updating quantity');
+                console.error('Failed to update quantity:', data.message);
+                alert('Lỗi khi cập nhật số lượng: ' + data.message);
             }
         })
         .catch(error => {
             console.error('Error updating quantity:', error);
+            alert('Đã xảy ra lỗi khi cập nhật số lượng. Vui lòng thử lại sau.');
         });
     }
+
 </script>
 
 </body>

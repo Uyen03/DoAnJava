@@ -47,8 +47,8 @@ public class CartController {
 
     @PostMapping("/update")
     public ResponseEntity<Map<String, Object>> updateQuantity(@RequestBody Map<String, Object> request) {
-        Long productId = Long.valueOf((Integer) request.get("productId"));
-        int quantity = (Integer) request.get("quantity");
+        Long productId = Long.valueOf(request.get("productId").toString());
+        int quantity = Integer.parseInt(request.get("quantity").toString());
 
         boolean success = cartService.updateQuantity(productId, quantity);
         double totalPrice = cartService.calculateTotalPrice();
@@ -59,6 +59,7 @@ public class CartController {
 
         return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/remove/{productId}")
     public String removeFromCart(@PathVariable Long productId) {
