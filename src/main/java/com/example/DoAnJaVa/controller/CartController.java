@@ -57,8 +57,13 @@ public class CartController {
         response.put("success", success);
         response.put("totalPrice", totalPrice);
 
+        if (!success) {
+            response.put("message", "Không đủ số lượng tồn kho");
+        }
+
         return ResponseEntity.ok(response);
     }
+
 
 
     @GetMapping("/remove/{productId}")
