@@ -2,23 +2,42 @@ package com.example.DoAnJaVa.model;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Min;
+import lombok.*;
 
-@Getter
-@Setter
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+@Data
 @Entity
-@Table(name = "products")
+@Table(name = "Product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "ID_PRO")
+    private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_CAT", referencedColumnName = "ID_CAT")
+    private Category category;
+
+    @Column(name = "NAME_PRO", nullable = false)
     private String name;
 
+    @Column(name = "NUMS", nullable = false)
+    private int nums;
+
+    @Column(name = "PRICE", nullable = false)
+    @Min(value = 0, message = "Giá không được nhỏ hơn 0")
     private double price;
 
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    private String ImageURL;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImage> images = new ArrayList<>();
+
+    private String mainImage;
+
 }

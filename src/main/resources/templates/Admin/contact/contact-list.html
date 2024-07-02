@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace = "Admin/fragments/head :: head">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+</head>
+<head th:replace = "Admin/fragments/header :: header"></head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <!--    <div th:replace = "Admin/fragments/header :: header"></div>-->
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img th:src="@{~/admin/images/avatar.png}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <span class="hidden-xs"><span sec:authentication="name"> </span></span>
+                    <br>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+
+            <ul class="sidebar-menu" data-widget="tree">
+
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/products/product-list">
+                        <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
+                        <span class="pull-right-container">
+                        <small class="label pull-right bg-green">FE</small>
+                        </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/categories/category-list">
+                        <i class="fa fa-th"></i> <span>Quản lý danh mục</span>
+                        <span class="pull-right-container">
+                        <small class="label pull-right bg-green">FE</small>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/users">
+                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
+
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/orders">
+                        <i class="fa fa-th"></i> <span>Quản lý đơn hàng </span>
+                        <span class="pull-right-container">
+                                  <small class="label pull-right bg-green">FE</small>
+                                </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/orders/revenue/summary">
+                        <i class="fa fa-th"></i> <span>Quản lý doanh thu </span>
+                        <span class="pull-right-container">
+                                  <small class="label pull-right bg-green">FE</small>
+                                </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/admin/contact-list">
+                        <i class="fa fa-th"></i> <span>Quản lý liên hệ </span>
+                        <span class="pull-right-container">
+                                  <small class="label pull-right bg-green">FE</small>
+                                </span>
+                    </a>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>Quản lý banner</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="">
+                        <i class="fa fa-th"></i> <span>Widgets</span>
+                        <span class="pull-right-container">
+              <small class="label pull-right bg-green">Hot</small>
+            </span>
+                    </a>
+                </li>
+
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="box">
+                <div class="mb-4 text-center">
+                    <h1>Danh sách liên hệ</h1>
+                </div>
+                <div class="box-body">
+                    <table id="contactTable" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="contact : ${contacts}">
+                            <td th:text="${contact.id}"></td>
+                            <td th:text="${contact.name}"></td>
+                            <td th:text="${contact.phoneNumber}"></td>
+                            <td th:text="${contact.address}"></td>
+                            <td th:text="${contact.email}"></td>
+                            <td th:text="${contact.message}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+
+        </div>
+        <strong>Copyright &copy; 2024 <a href="https://adminlte.io">LPU</a>.</strong>
+    </footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:src="@{admin/js/jquery.min.js}"></script>
+<script th:src="@{admin/js/jquery-ui.js}"></script>
+<script th:src="@{admin/js/bootstrap.min.js}"></script>
+<script th:src="@{admin/js/adminlte.min.js}"></script>
+<script th:src="@{admin/js/dashboard.js}"></script>
+<!--<script src="tinymce/tinymce.min.js"></script>-->
+<!--<script src="tinymce/config.js"></script>-->
+<script th:src="@{admin/js/function.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<!-- DataTables -->
+<script th:src="@{https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js}"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function() {
+        $('#contactTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "language": {
+                "paginate": {
+                    "previous": "<", // Thay đổi văn bản nút Previous
+                    "next": ">" // Thay đổi văn bản nút Next
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
