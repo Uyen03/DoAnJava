@@ -1275,6 +1275,32 @@ blockquote {
   .header-intro-clearance .cart-dropdown .dropdown-toggle, .header-intro-clearance .wishlist .dropdown-toggle, .header-intro-clearance .account .dropdown-toggle {
     color: #333; }
 
+
+/*autocomplete styling*/
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
+.autocomplete-items img{
+  width: 25%;
+  height: 25%;
+}
+/*------------*/
+
 @media screen and (min-width: 992px) {
   .mobile-menu-toggler {
     display: none; } }

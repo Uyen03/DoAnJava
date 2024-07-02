@@ -3,8 +3,11 @@ package com.example.DoAnJaVa.service;
 import com.example.DoAnJaVa.model.Product;
 import com.example.DoAnJaVa.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.buf.UDecoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,5 +61,51 @@ public class ProductService {
         } else {
             throw new IllegalArgumentException("Không đủ hàng tồn kho");
         }
+    }
+
+    public List<String> getProductNamesArray(){
+        List<String> names = new ArrayList<>();
+        List<Product> products = getAllProducts();
+
+        for (Product items : products){
+            if (items.getName() != null){
+                String temp ="'" + items.getName() + "'";
+                names.add(temp);
+            }
+            else
+                names.add("''");
+        }
+
+        return names;
+    }
+
+    public List<String> getProductImagesArray(){
+        List<String> images = new ArrayList<>();
+        List<Product> products = getAllProducts();
+
+        for (Product items : products){
+            if (items.getMainImage() != null){
+                String temp ="'" + items.getMainImage() + "'";
+                images.add(temp);
+            }
+            else
+                images.add("''");
+        }
+
+        return images;
+    }
+
+    public List<Double> getProductPricesArray(){
+        List<Double> prices = new ArrayList<>();
+        List<Product> products = getAllProducts();
+
+        for (Product items : products){
+            if (items.getPrice() != 0)
+                prices.add(items.getPrice());
+            else
+                prices.add((double) 0);
+        }
+
+        return prices;
     }
 }

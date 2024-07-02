@@ -22,7 +22,7 @@
 </style>
 
 
-<header class="header header-intro-clearance header-4" xmlns:th="http://www.thymeleaf.org" th:layout="header"
+<header class="header header-intro-clearance header-4" xmlns:th="http://www.thymeleaf.org" th:fragment="header(productSearch, imageSearch, priceSearch)"
         xmlns:sec="http://www.w3.org/1999/xhtml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <div class="header-top">
@@ -85,7 +85,7 @@
             <div class="header-center">
                 <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
                     <a href="/" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                    <form action="/" method="get">
+                    <form autocomplete="off" action="/" method="get">
                         <div class="header-search-wrapper search-wrapper-wide">
                             <label for="keyword" class="sr-only">Search</label>
                             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
@@ -237,4 +237,6 @@
             }
         }
     });
+
+
 </script>

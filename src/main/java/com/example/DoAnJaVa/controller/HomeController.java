@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,11 @@ public class HomeController {
         } else {
             products = productService.getAllProducts();
         }
+
         model.addAttribute("products", products);
+        model.addAttribute("productSearch", productService.getProductNamesArray());
+        model.addAttribute("imageSearch", productService.getProductImagesArray());
+        model.addAttribute("priceSearch", productService.getProductPricesArray());
         return "index";
     }
 
