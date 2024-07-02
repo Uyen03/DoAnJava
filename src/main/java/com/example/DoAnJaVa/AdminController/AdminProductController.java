@@ -4,10 +4,8 @@ import com.example.DoAnJaVa.model.ProductImage;
 import com.example.DoAnJaVa.service.ProductService;
 import com.example.DoAnJaVa.service.CategoryService;
 import com.example.DoAnJaVa.service.ProductImageService;
-import com.example.DoAnJaVa.model.Category;
 import com.example.DoAnJaVa.model.Product;
 import jakarta.validation.Valid;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.ui.Model;
 //import com.example.DoAnJaVa.service.CategoryService;
 //import jakarta.validation.Valid;
@@ -18,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,7 +25,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/products")
-public class ProductController {
+public class AdminProductController {
     @Autowired
     private ProductService productService;
     @Autowired
