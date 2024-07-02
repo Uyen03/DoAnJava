@@ -28,7 +28,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img th:src="@{employ/images/avatar5.png}" class="img-circle" alt="User Image">
+                        <img th:src="@{~/employ/images/avatar5.png}" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><span sec:authentication="name"> </span></p>
@@ -61,6 +61,14 @@
                     <li>
                         <a class="nav-link active" aria-current="page" href="/employ/orders">
                             <i class="fa fa-th"></i> <span>Quản lý đơn hàng </span>
+                            <span class="pull-right-container">
+                                  <small class="label pull-right bg-green">FE</small>
+                                </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link active" aria-current="page" href="/employ/contact-list">
+                            <i class="fa fa-th"></i> <span>Quản lý liên hệ </span>
                             <span class="pull-right-container">
                                   <small class="label pull-right bg-green">FE</small>
                                 </span>

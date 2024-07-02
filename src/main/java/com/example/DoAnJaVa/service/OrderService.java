@@ -30,7 +30,7 @@ public class OrderService {
     private ProductService productService; // Assuming you have a ProductService
 
     @Transactional
-    public Order createOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems) {
+    public Order createOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems, String txnRef) {
         Order order = new Order();
         order.setCustomerName(customerName);
         order.setPaymentMethod(paymentMethod);
@@ -38,7 +38,11 @@ public class OrderService {
         order.setAddress(address);
         order.setOrderDate(LocalDate.now());
         order.setEmail(email);
+        order.setTotalPrice(cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum());
+        order.setStatus("Pending");
+        order.setTxnRef(txnRef); // Set transaction reference
         order = orderRepository.save(order);
+
         for (CartItem item : cartItems) {
             OrderDetail detail = new OrderDetail();
             detail.setOrder(order);
@@ -49,8 +53,10 @@ public class OrderService {
             // Giảm số lượng sản phẩm trong kho
             productService.reduceStock(item.getProduct().getId(), item.getQuantity());
         }
-        // Optionally clear the cart after order placement
+
+        // Clear the cart after order placement
         cartService.clearCart();
+
         return order;
     }
 
@@ -64,9 +70,9 @@ public class OrderService {
         return orderRepository.findById(orderId).orElse(null);
     }
 
-    // Method to update order status
-    public void updateOrderStatus(Long orderId, String newStatus) {
-        Order order = orderRepository.findById(orderId).orElse(null);
+    // Method to update order status by txnRef
+    public void updateOrderStatus(String txnRef, String newStatus) {
+        Order order = orderRepository.findByTxnRef(txnRef);
         if (order != null) {
             order.setStatus(newStatus);
             orderRepository.save(order);
@@ -116,4 +122,8 @@ public class OrderService {
         return monthlyRevenue;
     }
 
+    // Phương thức lấy danh sách đơn hàng theo ngày
+    public List<Order> getOrdersByDate(LocalDate date) {
+        return orderRepository.findByOrderDate(date);
+    }
 }

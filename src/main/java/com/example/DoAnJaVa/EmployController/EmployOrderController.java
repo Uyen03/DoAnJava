@@ -23,7 +23,6 @@ public class EmployOrderController {
     @Autowired
     private CartService cartService;
 
-    // New methods for admin order management
     @GetMapping
     public String showOrders(Model model) {
         List<Order> orders = orderService.getAllOrders();
@@ -32,7 +31,7 @@ public class EmployOrderController {
             order.setTotalPrice(totalPrice);
         }
         model.addAttribute("orders", orders);
-        return "Employ/orders/orders"; // Đường dẫn tương đối tới tệp orders.html
+        return "Employ/orders/orders"; // Đường dẫn tương đối tới tệp order-details.html
     }
 
     @GetMapping("/order-details/{orderId}")
@@ -42,24 +41,22 @@ public class EmployOrderController {
         return "Employ/orders/order-details"; // Đường dẫn tương đối tới tệp order-details.html
     }
 
-    @PostMapping("/{orderId}/updateStatus")
-    public String updateOrderStatus(@PathVariable Long orderId, @RequestParam String newStatus) {
-        orderService.updateOrderStatus(orderId, newStatus);
-        return "redirect:/employ/orders/" + orderId;
+    @PostMapping("/{txnRef}/updateStatus")
+    public String updateOrderStatus(@PathVariable String txnRef, @RequestParam String newStatus) {
+        orderService.updateOrderStatus(txnRef, newStatus);
+        return "redirect:/employ/orders/order-details/" + txnRef;
     }
 
-    // Helper method to calculate total price for an order
     private double calculateOrderTotalPrice(Order order) {
-        double totalPrice = 000.000;
-        List<OrderDetail> orderDetails = order.getOrderDetails(); // Assuming this retrieves order details
+        double totalPrice = 0.0;
+        List<OrderDetail> orderDetails = order.getOrderDetails();
 
         for (OrderDetail detail : orderDetails) {
-            totalPrice += detail.getQuantity() * detail.getProduct().getPrice(); // Calculate total price for each detail
+            totalPrice += detail.getQuantity() * detail.getProduct().getPrice();
         }
 
         return totalPrice;
     }
-
 
     @ModelAttribute
     public void populateModel(Model model) {

@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace = "Admin/fragments/head :: head">
-    <!-- DataTables CSS -->
-    <link th:href="@{https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css}" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
+<head th:replace = "Employ/fragments/head :: head">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
-<head th:replace = "Admin/fragments/header :: header"></head>
+<head th:replace = "Employ/fragments/header :: header"></head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -17,13 +13,14 @@
     <!-- =============================================== -->
 
     <!-- Left side column. contains the sidebar -->
-    <aside class="main-sidebar">
+
+    <aside class="main-sidebar" style="background-color:  #00008B    !important">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img th:src="@{~/admin/images/avatar.png}" class="img-circle" alt="User Image">
+                    <img th:src="@{~/admin/images/avatar5.png}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <span class="hidden-xs"><span sec:authentication="name"> </span></span>
@@ -36,54 +33,35 @@
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-                    </span>
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
                 </div>
             </form>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
+
             <ul class="sidebar-menu" data-widget="tree">
+
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/products/product-list">
-                        <i class="fa fa-th"></i> <span>Quản lý sản phẩm </span>
+                    <a class="nav-link active" aria-current="page" href="/employ/products/product-list">
+                        <i class="fa fa-th"></i> <span>Quản lý kho </span>
                         <span class="pull-right-container">
-                            <small class="label pull-right bg-green">FE</small>
+                        <small class="label pull-right bg-green">FE</small>
                         </span>
                     </a>
                 </li>
+
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/categories/category-list">
-                        <i class="fa fa-th"></i> <span>Quản lý danh mục</span>
-                        <span class="pull-right-container">
-                            <small class="label pull-right bg-green">FE</small>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/users">
-                        <i class="fa fa-th"></i> <span>Quản lý tài khoản </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/orders">
+                    <a class="nav-link active" aria-current="page" href="/employ/orders">
                         <i class="fa fa-th"></i> <span>Quản lý đơn hàng </span>
                         <span class="pull-right-container">
                                   <small class="label pull-right bg-green">FE</small>
                                 </span>
                     </a>
                 </li>
-
                 <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/orders/revenue/summary">
-                        <i class="fa fa-th"></i> <span>Quản lý doanh thu </span>
-                        <span class="pull-right-container">
-                                  <small class="label pull-right bg-green">FE</small>
-                                </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a class="nav-link active" aria-current="page" href="/admin/contact-list">
+                    <a class="nav-link active" aria-current="page" href="/employ/contact-list">
                         <i class="fa fa-th"></i> <span>Quản lý liên hệ </span>
                         <span class="pull-right-container">
                                   <small class="label pull-right bg-green">FE</small>
@@ -95,22 +73,24 @@
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Quản lý banner</span>
                         <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
                     </a>
                     <ul class="treeview-menu">
                         <li><a href=""><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                         <li><a href=""><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="">
                         <i class="fa fa-th"></i> <span>Widgets</span>
                         <span class="pull-right-container">
-                            <small class="label pull-right bg-green">Hot</small>
-                        </span>
+              <small class="label pull-right bg-green">Hot</small>
+            </span>
                     </a>
                 </li>
+
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -120,46 +100,41 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
 
-
         <!-- Main content -->
         <section class="content">
+
             <!-- Default box -->
             <div class="box">
                 <div class="mb-4 text-center">
-                    <h1> Quản lý sản phẩm</h1>
+                    <h1>Danh sách liên hệ</h1>
                 </div>
-                <div>
-                    <a th:href="@{/admin/products/add}" class="btn btn-primary mb-3">Add New Product</a>
+                <div class="box-body">
+                    <table id="contactTable" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="contact : ${contacts}">
+                            <td th:text="${contact.id}"></td>
+                            <td th:text="${contact.name}"></td>
+                            <td th:text="${contact.phoneNumber}"></td>
+                            <td th:text="${contact.address}"></td>
+                            <td th:text="${contact.email}"></td>
+                            <td th:text="${contact.message}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <table id="productsTable" class="table table-bordered table-hover">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="product : ${products}">
-                        <td th:text="${product.id}"></td>
-                        <td><img th:src="${product.mainImage}" class="img-thumbnail" style="width: auto; height: 100px;"></td>
-                        <td th:text="${product.name}"></td>
-                        <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
-                        <td th:text="${product.category.name}"></td>
-                        <td th:text="${product.description}"></td>
-                        <td>
-                            <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
-                            <a th:href="@{/admin/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
             <!-- /.box -->
+
         </section>
         <!-- /.content -->
     </div>
@@ -171,19 +146,30 @@
         </div>
         <strong>Copyright &copy; 2024 <a href="https://adminlte.io">LPU</a>.</strong>
     </footer>
+
 </div>
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script th:src="@{https://code.jquery.com/jquery-3.5.1.min.js}"></script>
-<!-- Bootstrap 4 -->
-<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js}"></script>
+
+<script th:src="@{admin/js/jquery.min.js}"></script>
+<script th:src="@{admin/js/jquery-ui.js}"></script>
+<script th:src="@{admin/js/bootstrap.min.js}"></script>
+<script th:src="@{admin/js/adminlte.min.js}"></script>
+<script th:src="@{admin/js/dashboard.js}"></script>
+<!--<script src="tinymce/tinymce.min.js"></script>-->
+<!--<script src="tinymce/config.js"></script>-->
+<script th:src="@{admin/js/function.js}"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <!-- DataTables -->
 <script th:src="@{https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js}"></script>
 
 <script th:inline="javascript">
     $(document).ready(function() {
-        $('#productsTable').DataTable({
+        $('#contactTable').DataTable({
             "paging": true,
             "lengthChange": false,
             "searching": true,
@@ -201,6 +187,4 @@
     });
 </script>
 </body>
-
-<!---->
 </html>
