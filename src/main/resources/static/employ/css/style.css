@@ -71,7 +71,7 @@
         /* Tăng kích thước các số trang */
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             font-size: 18px; /* Tăng kích thước font chữ */
-            margin: 0 5px; /* Khoảng cách giữa các số trang */
+            margin: 0 3px; /* Khoảng cách giữa các số trang */
             padding: 10px 15px; /* Khoảng cách nội dung */
             border-radius: 25px; /* Bo góc cho các số trang */
         }
@@ -83,3 +83,30 @@
             justify-content: center;
             gap: 20px; /* Khoảng cách giữa các phần tử trong pagination */
         }
+
+        /* Custom CSS for the search box */
+                .dataTables_filter {
+                    float: center;
+                    text-align: center;
+                }
+                .dataTables_filter label {
+                    font-weight: bold;
+                    font-size: 16px;
+                    margin-right: 10px;
+                    color: #333;
+                }
+                .dataTables_filter input {
+                    width: 250px;
+                    height: 40px;
+                    padding: 10px 20px;
+                    border: 2px solid #007BFF;
+                    border-radius: 20px;
+                    font-size: 16px;
+                    margin-left: 10px;
+                    transition: all 0.3s ease-in-out;
+                }
+                .dataTables_filter input:focus {
+                    border-color: #0056b3;
+                    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+                    outline: none;
+                }
