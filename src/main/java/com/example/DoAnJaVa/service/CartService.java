@@ -45,16 +45,23 @@ public class CartService {
     }
 
     public double calculateTotalPrice() {
-        return cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
+        double totalPrice = cartItems.stream().mapToDouble(CartItem::getTotalPrice).sum();
+        return Math.round(totalPrice);
     }
+
 
     public boolean updateQuantity(Long productId, int quantity) {
         for (CartItem item : cartItems) {
             if (item.getProduct().getId().equals(productId)) {
+                int availableStock = item.getProduct().getNums(); // Lấy số lượng tồn kho de ktra
+                if (quantity > availableStock) {
+                    return false;
+                }
                 item.setQuantity(quantity);
                 return true;
             }
         }
         return false;
     }
+
 }

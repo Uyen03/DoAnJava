@@ -94,6 +94,9 @@ public class SecurityConfig {
                         .maximumSessions(1)
                         .expiredUrl("/login")
                 )
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/cart/update", "/cart/add", "/cart/remove/**", "/cart/clear")  // Tắt CSRF cho các endpoint giỏ hàng
+                )
                 .httpBasic(httpBasic -> httpBasic
                         .realmName("hutech")
                 )
