@@ -1,6 +1,8 @@
 package com.example.DoAnJaVa.service;
 
+import com.example.DoAnJaVa.model.Category;
 import com.example.DoAnJaVa.model.Product;
+import com.example.DoAnJaVa.repository.CategoryRepository;
 import com.example.DoAnJaVa.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.Optional;
 @Transactional
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -59,4 +62,15 @@ public class ProductService {
             throw new IllegalArgumentException("Không đủ hàng tồn kho");
         }
     }
+
+//    public List<Product> getProductsByCategory(String categoryName) {
+//        Category category = categoryRepository.findByName(categoryName); // Giả sử bạn có phương thức này trong CategoryRepository
+//        if (category == null) {
+//            throw new IllegalStateException("Category with name " + categoryName + " does not exist.");
+//        }
+//        return productRepository.findByCategory(category);
+//    }
+public List<Product> getProductsByCategory(String categoryName) {
+    return productRepository.getProductsByCategoryName(categoryName);
+}
 }
