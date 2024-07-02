@@ -78,8 +78,9 @@ public class OrderController {
     }
 
     @GetMapping("/confirmation")
-    public String orderConfirmation(Model model) {
+    public String orderConfirmation(Model model, HttpSession session) {
         model.addAttribute("message", "Your order has been successfully placed.");
+        model.addAttribute("order", session.getAttribute("order")); // Lấy thông tin đơn hàng từ session
         return "/Admin/cart/order-confirmation";
     }
 
@@ -104,7 +105,8 @@ public class OrderController {
 
             if (customerName != null && paymentMethod != null && shippingMethod != null && address != null && email != null && cartItems != null) {
                 // Lưu đơn hàng và cập nhật trạng thái
-                saveOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems, txnRef);
+                Order order = saveOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems, txnRef);
+                session.setAttribute("order", order); // Lưu thông tin đơn hàng vào session
 
                 // Xóa thông tin trong session sau khi lưu đơn hàng
                 session.removeAttribute("customerName");
@@ -115,7 +117,7 @@ public class OrderController {
                 session.removeAttribute("cartItems");
                 session.removeAttribute("txnRef");
 
-                //Don cart sau khi thuc hien dat hang
+                // Dọn cart sau khi thực hiện đặt hàng
                 cartService.clearCart();
                 model.addAttribute("message", "Thanh toán thành công!");
             } else {
@@ -127,8 +129,19 @@ public class OrderController {
         return "/Admin/cart/order-confirmation";
     }
 
-    private void saveOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems, String txnRef) {
-        orderService.createOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems, txnRef);
+    private Order saveOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems, String txnRef) {
+        Order order = orderService.createOrder(customerName, paymentMethod, shippingMethod, address, email, cartItems, txnRef);
         orderService.updateOrderStatus(txnRef, "Completed");  // Cập nhật trạng thái đơn hàng ngay sau khi tạo
+        return order;
+    }
+
+    @GetMapping("/view")
+    public String viewOrder(HttpSession session, Model model) {
+        Order order = (Order) session.getAttribute("order");
+        if (order == null) {
+            return "redirect:/"; // Redirect to home if no order found
+        }
+        model.addAttribute("order", order);
+        return "/Admin/cart/order-details"; // Trả về trang hiển thị chi tiết đơn hàng
     }
 }

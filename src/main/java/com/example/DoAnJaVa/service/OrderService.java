@@ -11,17 +11,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class OrderService {
-
-    private final OrderRepository orderRepository;
-    private final OrderDetailRepository orderDetailRepository;
-    private final CartService cartService;
-    private final ProductService productService;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private CartService cartService; // Assuming you have a CartService
+    @Autowired
+    private ProductService productService; // Assuming you have a ProductService
 
     @Transactional
     public Order createOrder(String customerName, String paymentMethod, String shippingMethod, String address, String email, List<CartItem> cartItems, String txnRef) {
@@ -64,7 +70,7 @@ public class OrderService {
         return orderRepository.findById(orderId).orElse(null);
     }
 
-    // Method to update order status
+    // Method to update order status by txnRef
     public void updateOrderStatus(String txnRef, String newStatus) {
         Order order = orderRepository.findByTxnRef(txnRef);
         if (order != null) {
@@ -73,7 +79,6 @@ public class OrderService {
         }
     }
 
-    // Method to calculate total revenue
     public double calculateTotalRevenue() {
         List<Order> allOrders = orderRepository.findAll(); // Lấy tất cả các đơn hàng
         double totalRevenue = 0.0;
@@ -83,8 +88,42 @@ public class OrderService {
         return totalRevenue;
     }
 
-    // Method to save order
     public void saveOrder(Order order) {
         orderRepository.save(order); // Lưu cập nhật đối tượng Order vào CSDL
+    }
+
+    // Phương thức tính toán doanh thu hàng ngày
+    public Map<LocalDate, Double> calculateDailyRevenue() {
+        List<Order> orders = orderRepository.findAll();
+        Map<LocalDate, Double> dailyRevenue = new HashMap<>();
+
+        for (Order order : orders) {
+            LocalDate orderDate = order.getOrderDate();
+            double orderTotal = order.getTotalPrice();
+
+            dailyRevenue.merge(orderDate, orderTotal, Double::sum);
+        }
+
+        return dailyRevenue;
+    }
+
+    // Phương thức tính toán doanh thu hàng tháng
+    public Map<YearMonth, Double> calculateMonthlyRevenue() {
+        List<Order> orders = orderRepository.findAll();
+        Map<YearMonth, Double> monthlyRevenue = new HashMap<>();
+
+        for (Order order : orders) {
+            YearMonth yearMonth = YearMonth.from(order.getOrderDate());
+            double orderTotal = order.getTotalPrice();
+
+            monthlyRevenue.merge(yearMonth, orderTotal, Double::sum);
+        }
+
+        return monthlyRevenue;
+    }
+
+    // Phương thức lấy danh sách đơn hàng theo ngày
+    public List<Order> getOrdersByDate(LocalDate date) {
+        return orderRepository.findByOrderDate(date);
     }
 }

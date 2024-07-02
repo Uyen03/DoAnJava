@@ -5,12 +5,15 @@ import com.example.DoAnJaVa.model.Product;
 import com.example.DoAnJaVa.service.CartService;
 import com.example.DoAnJaVa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cart")
@@ -40,6 +43,21 @@ public class CartController {
 
         cartService.addToCart(productId, quantity);
         return "redirect:/cart";
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Map<String, Object>> updateQuantity(@RequestBody Map<String, Object> request) {
+        Long productId = Long.valueOf((Integer) request.get("productId"));
+        int quantity = (Integer) request.get("quantity");
+
+        boolean success = cartService.updateQuantity(productId, quantity);
+        double totalPrice = cartService.calculateTotalPrice();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+        response.put("totalPrice", totalPrice);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/remove/{productId}")
