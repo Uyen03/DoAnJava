@@ -30,11 +30,10 @@ public class ProductService {
         Product existingProduct = productRepository.findById((long) product.getId())
                 .orElseThrow(() -> new IllegalStateException("Product with ID " + product.getId() + " does not exist."));
         existingProduct.setName(product.getName());
-        existingProduct.setCategory(product.getCategory());
-        existingProduct.setNums(product.getNums());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
-        existingProduct.setImageURL(product.getImageURL());
+        existingProduct.setMainImage(product.getMainImage());
+        existingProduct.setCategory(product.getCategory());
         return productRepository.save(existingProduct);
     }
 
@@ -43,5 +42,21 @@ public class ProductService {
             throw new IllegalStateException("Product with ID " + id + " does not exist.");
         }
         productRepository.deleteById(id);
+    }
+
+    // Thêm phương thức tìm kiếm sản phẩm theo tên
+    public List<Product> searchProductsByName(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public void reduceStock(Long productId, int quantity) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalStateException("Product with ID " + productId + " does not exist."));
+        if (product.getNums() >= quantity) {
+            product.setNums(product.getNums() - quantity);
+            productRepository.save(product);
+        } else {
+            throw new IllegalArgumentException("Không đủ hàng tồn kho");
+        }
     }
 }
